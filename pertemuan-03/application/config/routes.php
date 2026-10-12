@@ -1,4 +1,4 @@
- <?php
+<?php
 
 $route = [];
 
@@ -15,9 +15,3 @@ $route['auth/logout'] = 'auth/logout';
 
 // Route halaman administrasi 
 $route['admin']       = 'admin/index';
-
-// P4: BARU - semua proses CRUD admin dipindahkan di bawah /admin/madmin.
-$route['admin/madmin'] = 'madmin_controller/index';
-$route['admin/madmin/tambah'] = 'madmin_controller/tambah';
-$route['admin/madmin/ubah/(:any)'] = 'madmin_controller/ubah/$1';
-$route['admin/madmin/hapus/(:any)'] = 'madmin_controller/hapus/$1';

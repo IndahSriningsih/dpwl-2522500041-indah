@@ -1,4 +1,4 @@
- <?php
+<?php
 class Auth extends Controller
 {
   public function login(): void
@@ -45,13 +45,18 @@ class Auth extends Controller
     $model = new Admin_model();
     $admin = $model->findByUsername($username);
 
-    if (
-      !$admin ||
-      $admin['status_akun'] !== 'aktif' ||
-      !password_verify($password, $admin['password'])
-    ) {
+    // 1. Cek apakah username tidak terdaftar atau password-nya salah
+    if (!$admin || !password_verify($password, $admin['password'])) {
       $this->view('auth/login', [
         'error' => 'Username atau password tidak sesuai.'
+      ]);
+      return;
+    }
+
+    // 2. Cek jika status akun nonaktif (password sudah pasti benar jika lolos dari cek di atas)
+    if ($admin['status_akun'] !== 'aktif') {
+      $this->view('auth/login', [
+        'error' => 'Maaf, akun Anda dinonaktifkan.'
       ]);
       return;
     }
