@@ -108,3 +108,24 @@ Pada tahap integrasi dan pengemasan akhir ini, dilakukan penyesuaian akhir pada 
      git commit -m "P5: Melengkapi seluruh dokumentasi README dan penyelesaian modul Manajemen Kendaraan"
      git push
      ```
+     ### F.4. Memperbarui Dokumentasi dan Mencatat Perubahan Git (Tahap F)
+
+Pada tahap semakan akhir dan penyerahan tugasan ini, seluruh repositori telah disahkan berada dalam keadaan stabil, lengkap, dan sedia untuk dinilai:
+
+1. **Penyemakan Akhir Repositori**:
+   - Memastikan tiada fail sementara, log penyahpepijatan (*debug logs*), atau fail yang tidak diperlukan tertinggal dalam folder `pertemuan-05`.
+   - Semakan semula dilakukan ke atas pautan aset, sambungan basis data, dan laluan *route* bagi memastikan modul berjalan tanpa sebarang ralat pada persekitaran ujian.
+   - Dokumen `README.md` dikemas kini sepenuhnya dengan penutup dan ringkasan akhir keseluruhan pelaksanaan praktikum Pertemuan 05.
+
+2. **Hasil Pengesahan Penyerahan**:
+   - Seluruh struktur modul Manajemen Kendaraan dan dokumen sokongan berada dalam keadaan lengkap dan tersusun mengikut piawaian tugasan.
+   - Perubahan terakhir telah berjaya disinkronkan ke dalam cawangan (*branch*) utama repositori Git secara selamat.
+
+3. **Penyalinan & Git Commit**:
+   - Kemas kini akhir bagi dokumentasi dan pembersihan folder pada `pertemuan-05` telah disalin sepenuhnya.
+   - Komit dan penolakan (*push*) akhir dilakukan ke repositori Git melalui perintah:
+     ```bash
+     git add .
+     git commit -m "P5: Penutupan dokumentasi dan penyerahan akhir modul Manajemen Kendaraan"
+     git push
+     ```
