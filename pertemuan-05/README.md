@@ -41,3 +41,27 @@ Pada tahap ini, dilakukan pembuatan komponen dasar *Controller* dan *View* untuk
      git commit -m "P5: Membuat Controller dan View dasar Manajemen Kendaraan"
      git push
      ```
+     ### C.6. Memperbarui Dokumentasi dan Mencatat Perubahan Git (Tahap C)
+
+Pada tahap ini, dilakukan penyempurnaan implementasi penuh bagi fitur Manajemen Kendaraan yang mencakup integrasi *Model*, pemrosesan data (CRUD: *Create, Read, Update, Delete*), penanganan unggahan foto, serta validasi formulir:
+
+1. **Perubahan Kode**:
+   - **`application/models/Mobil_model.php`**: Membuat *Model* baru untuk menangani interaksi basis data seperti mengambil data kendaraan, menambah data baru, memperbarui data, menghapus data, dan mengelola unggahan berkas gambar.
+   - **`application/controllers/Mobil_controller.php`**: Melengkapi seluruh *method* logika bisnis mencakup `index()`, `tambah()`, `simpan()`, `edit()`, `update()`, dan `hapus()`.
+   - **`application/views/admin/`**: 
+     - Menyempurnakan `mobil_index.php` untuk menampilkan daftar data kendaraan secara dinamis dari basis data beserta tombol aksi.
+     - Membuat berkas *View* `mobil_tambah.php` dan `mobil_edit.php` yang dilengkapi dengan formulir input dan validasi.
+
+2. **Hasil Pengujian**:
+   - **Tampil Data (Read)**: Data kendaraan dari basis data berhasil ditampilkan secara dinamis pada tabel halaman utama.
+   - **Tambah & Edit Data (Create & Update)**: Validation rules berfungsi dengan baik, serta proses unggah foto depan kendaraan berhasil tersimpan ke dalam direktori server.
+   - **Hapus Data (Delete)**: Fungsi hapus berhasil menghapus rekod data kendaraan beserta berkas foto terkait dari direktori.
+
+3. **Penyalinan & Git Commit**:
+   - Seluruh hasil perubahan pada *workspace* (`dpwl-nim`) telah disalin ke folder arsip praktikum (`pertemuan-05`).
+   - Perubahan dicatat ke repositori Git dengan perintah:
+     ```bash
+     git add .
+     git commit -m "P5: Menyelesaikan implementasi CRUD dan penanganan foto Manajemen Kendaraan"
+     git push
+     ```
