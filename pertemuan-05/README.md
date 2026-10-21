@@ -88,3 +88,23 @@ Pada tahap akhir ini, dilakukan pengujian menyeluruh (*end-to-end testing*), pem
      git commit -m "P5: Finalisasi, pembersihan kode, dan pengujian akhir Manajemen Kendaraan"
      git push
      ```
+     ### E.6. Memperbarui Dokumentasi dan Mencatat Perubahan Git (Tahap E)
+
+Pada tahap integrasi dan pengemasan akhir ini, dilakukan penyesuaian akhir pada struktur repositori serta pemastian bahawa seluruh dokumentasi praktikum telah lengkap dan tersusun rapi:
+
+1. **Penyemakan Dokumentasi & Struktur Projek**:
+   - Memastikan fail `README.md` telah dikemas kini sepenuhnya dengan liputan laporan bagi setiap tahap (Tahap A hingga Tahap E).
+   - Memeriksa semula struktur folder `pertemuan-05` untuk memastikan semua fail *Controller*, *Model*, *View*, serta aset gambar yang diperlukan telah disalin dengan betul dari *workspace* utama (`dpwl-nim`).
+
+2. **Hasil Pengukuhan Akhir**:
+   - Dokumentasi projek mencerminkan keseluruhan proses pembangunan sistem secara sistematik dan terperinci.
+   - Kod sumber (*source code*) bagi modul Manajemen Kendaraan sedia untuk dikesan, diselenggara, dan dinilai tanpa sebarang fail berangkai yang tertinggal.
+
+3. **Penyalinan & Git Commit**:
+   - Seluruh penyesuaian akhir dokumentasi pada folder arkib praktikum (`pertemuan-05`) telah disalin dan dikemas kini.
+   - Perubahan akhir dicatat dan dihantar ke repositori Git melalui perintah:
+     ```bash
+     git add .
+     git commit -m "P5: Melengkapi seluruh dokumentasi README dan penyelesaian modul Manajemen Kendaraan"
+     git push
+     ```
