@@ -65,3 +65,26 @@ Pada tahap ini, dilakukan penyempurnaan implementasi penuh bagi fitur Manajemen 
      git commit -m "P5: Menyelesaikan implementasi CRUD dan penanganan foto Manajemen Kendaraan"
      git push
      ```
+
+     ### D.5. Memperbarui Dokumentasi dan Mencatat Perubahan Git (Tahap D)
+
+Pada tahap akhir ini, dilakukan pengujian menyeluruh (*end-to-end testing*), pembersihan kod, serta pemastian integrasi dan keselamatan sistem bagi keseluruhan fitur Manajemen Kendaraan:
+
+1. **Pembersihan dan Optimasi Kode**:
+   - Menghapus kod penyahpepijatan (*debugging code*) dan komen sementara pada berkas *Controller*, *Model*, dan *View*.
+   - Memastikan struktur laluan direktori foto dan nama pemboleh ubah telah konsisten di seluruh aplikasi.
+   - Memastikan mekanisme validasi input dan pengurusan ralat (*error handling*) berfungsi dengan baik apabila pengguna memasukkan format data yang salah atau gagal memuat naik foto.
+
+2. **Hasil Pengujian Akhir**:
+   - Keseluruhan alur kerja (*workflow*) CRUD (Tambah, Papar, Kemas Kini, dan Hapus) bagi data kendaraan berfungsi dengan lancar tanpa sebarang galat.
+   - Antaramuka (*UI*) halaman Manajemen Kendaraan tampil kemas, responsif, dan sejajar pada pelbagai saiz skrin.
+   - Pengurusan fail gambar (muat naik fail baharu dan pemadaman fail lama semasa kemas kini/hapus) berjalan dengan stabil pada pelayan.
+
+3. **Penyalinan & Git Commit**:
+   - Seluruh hasil perubahan akhir pada *workspace* (`dpwl-nim`) telah disalin ke folder arkib praktikum (`pertemuan-05`).
+   - Perubahan dicatat dan dikemas kini ke repositori Git dengan perintah:
+     ```bash
+     git add .
+     git commit -m "P5: Finalisasi, pembersihan kode, dan pengujian akhir Manajemen Kendaraan"
+     git push
+     ```
