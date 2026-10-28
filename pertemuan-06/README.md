@@ -154,3 +154,36 @@
 
 #### 5. Catatan dan Perbaikan Galat
 * *Status Fitur:* Integrasi route, model, controller, dan view registrasi penyewa serta pengujian berbagai skenario input telah berhasil diverifikasi sesuai petunjuk modul P6[cite: 31, 35].
+
+## E. Mengimplementasikan Login, Sesi, dan Logout Penyewa
+
+### E.4. Menguji Login Berhasil, Login Gagal, Sesi, Logout, dan Pembatasan Akses
+
+#### 1. Tahap Pengembangan
+* Menambahkan route login dan logout penyewa pada `application/config/routes.php`[cite: 36]:
+  * `$route['auth/login-penyewa'] = 'Auth/loginPenyewa';`[cite: 36]
+  * `$route['auth/logout-penyewa'] = 'Auth/logoutPenyewa';`[cite: 36]
+* Mengintegrasikan method `loginPenyewa()` dan `logoutPenyewa()` pada `application/controllers/Auth.php` untuk menangani otentikasi password, manajemen sesi (`$_SESSION['penyewa_user_plg']`), dan *flash message* navigasi[cite: 36, 37].
+* Membuat View formulir login di `application/views/auth/login_penyewa.php`[cite: 37].
+* Menyesuaikan komponen `navbar.php` untuk menampilkan menu *Logout* dan ikon *Profil* saat penyewa berhasil login[cite: 12, 13].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Route:** `application/config/routes.php` (menambahkan route `auth/login-penyewa` dan `auth/logout-penyewa`)[cite: 36].
+* **Controller:** `application/controllers/Auth.php` (menambahkan method `loginPenyewa()` dan `logoutPenyewa()`)[cite: 36, 37].
+* **View:** `application/views/auth/login_penyewa.php` (membuat View formulir login penyewa)[cite: 37].
+* **Navigasi:** `application/views/katalog/navbar.php` (penyesuaian kondisi login penyewa)[cite: 12, 13].
+
+#### 3. Langkah Pengujian
+1. **Pengujian Halaman Login:**
+   * Mengakses menu **Login Penyewa** atau URL `http://localhost/dpwl-[NIM]/index.php/auth/login-penyewa`[cite: 38].
+   * Memastikan formulir login tampil lengkap dengan input *username* dan *password*[cite: 37, 38].
+2. **Pengujian Login Gagal (Validasi & Kredensial Salah):**
+   * Memasukkan *username* atau *password* yang tidak terdaftar/salah[cite: 36].
+   * Memastikan sistem menampilkan pesan galat *"Username atau password tidak sesuai."* tanpa mengarahkan ke halaman lain[cite: 36, 37].
+3. **Pengujian Login Berhasil & Sesi:**
+   * Memasukkan *username* dan *password* akun penyewa yang terdaftar[cite: 36, 38].
+   * Mengklik tombol **Login**[cite: 37, 38].
+   * Memastikan sistem meregenerasi ID sesi (`session_regenerate_id(true)`), mengarahkan ke halaman katalog, serta menampilkan pesan *flash* selamat datang dan menu *Logout* serta ikon *Profil* di navbar[cite: 13, 37, 39].
+4. **Pengujian Logout Penyewa:**
+   * Mengklik tombol/menu **Logout** pada navbar[cite: 12, 39].
+   * Memastikan
