@@ -77,3 +77,39 @@
 #### 5. Catatan dan Penanganan Galat
 * *Foto Kendaraan:* Apabila terdapat unit kendaraan yang gambarnya belum tampil atau menggunakan teks alternatif, foto unit dapat diunggah melalui fitur **Manajemen Kendaraan (P5)** pada sisi Admin[cite: 21].
 * *Status Fitur:* Integrasi Model, Controller, View, dan Navigasi Katalog Kendaraan telah teruji dan berjalan sesuai spesifikasi praktikum P6[cite: 21].
+
+## C. Mengimplementasikan Detail Kendaraan Berbasis MVC
+
+### C.4. Menguji Navigasi Katalog ke Detail dan Penanganan Galat
+
+#### 1. Tahap Pengembangan
+* Menambahkan route `$route['katalog/detail/(:any)'] = 'Katalog_controller/detail/$1';` pada `application/config/routes.php`[cite: 21].
+* Mengintegrasikan method `detail(string $noPlat)` pada `application/controllers/Katalog_controller.php` untuk mengambil data detail kendaraan berdasarkan nomor plat[cite: 21].
+* Membuat View detail kendaraan di `application/views/katalog/detail.php` yang dilengkapi dengan tampilan foto utama, galeri thumbnail interaktif berbasis JavaScript, serta detail spesifikasi unit[cite: 21, 23, 24, 25].
+* Menyesuaikan tautan pada kartu katalog (`index.php`) agar mengarahkan navigasi ke halaman detail kendaraan[cite: 18, 19].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Route:** `application/config/routes.php` (menambahkan route detail kendaraan dengan parameter `:any`)[cite: 21].
+* **Controller:** `application/controllers/Katalog_controller.php` (menambahkan method `detail()`)[cite: 21].
+* **View:** `application/views/katalog/detail.php` (membuat View detail kendaraan baru)[cite: 21].
+
+#### 3. Langkah Pengujian
+1. **Pengujian Navigasi dari Katalog:**
+   * Membuka halaman katalog pada peramban (`http://localhost/dpwl-[NIM]/index.php/katalog`)[cite: 21, 25].
+   * Mengklik salah satu foto atau nama kendaraan (contoh: Toyota Kijang Innova Reborn)[cite: 25].
+   * Memastikan peramban berhasil berpindah ke URL detail, seperti `http://localhost/dpwl-[NIM]/index.php/katalog/detail/B%201173%20HFF`[cite: 25].
+2. **Pengujian Tampilan Detail & Galeri Interaktif:**
+   * Memeriksa kesesuaian informasi unit yang ditampilkan (nama kendaraan, harga sewa per hari, jenis, tahun buat, transmisi, kapasitas, status, dan deskripsi kendaraan)[cite: 25].
+   * Mengklik gambar thumbnail foto kendaraan (`ft_depan`, `ft_blkg`, `ft_interior`) atau tombol panah navigasi foto (kiri/kanan) untuk memastikan foto utama berganti secara dinamis[cite: 22, 23, 24].
+3. **Pengujian Penanganan Galat (404 Not Found):**
+   * Mengakses URL detail dengan nomor plat yang tidak ada/tidak terdaftar di basis data (contoh: `http://localhost/dpwl-[NIM]/index.php/katalog/detail/PLAT-PALSU`).
+   * Memastikan aplikasi memberikan respon HTTP Status `404` dengan pesan *"Kendaraan tidak ditemukan."*[cite: 21].
+
+#### 4. Hasil Pengujian Aktual
+* **Navigasi & Transisi Halaman:** Tautan dari halaman katalog ke detail kendaraan berfungsi dengan baik tanpa galat[cite: 25].
+* **Integritas Data Detail:** Seluruh data spesifikasi kendaraan yang diambil dari tabel `t_mobil` berhasil ditampilkan pada View detail secara tepat[cite: 21, 25].
+* **Interaktivitas Galeri Foto:** Skrip JavaScript untuk pergantian gambar utama melalui thumbnail dan tombol panah navigasi berfungsi secara responsif[cite: 23, 24].
+* **Penanganan Galat (404):** Sistem berhasil merespons dengan status HTTP 404 ketika nomor plat kendaraan tidak ditemukan di basis data[cite: 21].
+
+#### 5. Catatan dan Perbaikan Galat
+* *Status Fitur:* Integrasi route, model, controller, dan view untuk detail kendaraan beserta penanganan galatnya telah diuji dan berjalan sesuai instruksi modul P6[cite: 21, 26].
