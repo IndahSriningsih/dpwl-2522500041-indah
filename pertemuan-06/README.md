@@ -187,3 +187,43 @@
 4. **Pengujian Logout Penyewa:**
    * Mengklik tombol/menu **Logout** pada navbar[cite: 12, 39].
    * Memastikan
+
+   ## F. Mengimplementasikan Profil dan Pembaruan Data Penyewa
+
+### F.5. Menguji Pembaruan Profil dan Penanganan Input Tidak Valid
+
+#### 1. Tahap Pengembangan
+* Menambahkan route profil penyewa pada `application/config/routes.php` (`$route['penyewa/profil'] = 'Penyewa_controller/profil';`)[cite: 36].
+* Mengintegrasikan `application/controllers/Penyewa_controller.php` untuk mengelola proteksi autentikasi (wajib login), pemrosesan validasi data, unggah foto KTP/SIM A (validasi format `.jpg`, `.png`, `.webp`, ukuran maksimal 5 MB), serta penggantian password[cite: 37, 38, 41, 42].
+* Menambahkan method `updateProfil()` pada `application/models/Penyewa_model.php` untuk memperbarui data penyewa di database `t_penyewa`[cite: 43].
+* Membuat View profil penyewa di `application/views/penyewa/profil.php` untuk menampilkan form data diri, foto identitas, dan form ubah password[cite: 44, 48].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Route:** `application/config/routes.php` (menambahkan route `penyewa/profil`)[cite: 36].
+* **Controller:** `application/controllers/Penyewa_controller.php` (Controller baru untuk profil penyewa)[cite: 37].
+* **Model:** `application/models/Penyewa_model.php` (menambahkan method `updateProfil()`)[cite: 43].
+* **View:** `application/views/penyewa/profil.php` (membuat View profil penyewa)[cite: 44].
+
+#### 3. Langkah Pengujian
+1. **Pengujian Proteksi Akses (Autentikasi):**
+   * Mengakses URL `http://localhost/dpwl-[NIM]/index.php/penyewa/profil` secara langsung tanpa login terlebih dahulu[cite: 37, 52].
+   * Memastikan sistem menolak akses, mengarahkan (*redirect*) ke halaman login penyewa, dan menampilkan pesan peringatan[cite: 37].
+2. **Pengujian Tampilan Profil:**
+   * Login menggunakan akun penyewa yang terdaftar, lalu mengklik ikon profil pada navbar[cite: 13, 52].
+   * Memastikan data profil (Username, NIK, Nama Lengkap, Nomor HP, Alamat) dan foto KTP/SIM A yang tersimpan dapat tampil dengan benar[cite: 48, 52].
+3. **Pengujian Penanganan Input Tidak Valid & Unggah File:**
+   * Memasukkan NIK selain 16 digit angka, format nomor HP tidak valid, atau mengunggah berkas foto selain format image/ukuran > 5 MB[cite: 40, 42].
+   * Mengisi form ganti password dengan password saat ini yang salah atau konfirmasi password baru tidak cocok[cite: 38].
+   * Memastikan sistem menampilkan pesan galat (*alert-danger*) dan membatalkan proses pembaruan data[cite: 38, 48].
+4. **Pengujian Pembaruan Profil & Foto Berhasil:**
+   * Mengubah data diri dengan input valid, memilih file foto KTP/SIM A baru, atau mengisi perubahan password dengan benar[cite: 38, 42].
+   * Mengklik tombol **Simpan Perubahan**[cite: 48, 52].
+   * Memastikan data di database berhasil diperbarui, foto terunggah ke folder `uploads/penyewa/`, dan pesan sukses *"Profil berhasil diperbarui."* ditampilkan[cite: 40, 43, 48].
+
+#### 4. Hasil Pengujian Aktual
+* **Proteksi Halaman:** Fitur pembatasan akses berjalan baik, pengguna tanpa sesi login tidak dapat membuka halaman profil[cite: 37].
+* **Validasi Input & Berkas:** Sistem berhasil memvalidasi format teks, kesesuaian password, serta batasan ukuran dan ekstensi berkas foto KTP/SIM A[cite: 38, 40, 42].
+* **Pembaruan Data & Unggah File:** Data profil dan berkas foto baru berhasil tersimpan ke sistem basis data dan direktori penyimpanan[cite: 40, 43].
+
+#### 5. Catatan dan Perbaikan Galat
+* *Status Fitur:* Integrasi route, model, controller, dan view untuk pembaruan profil penyewa serta penanganan validasi inputnya telah diuji dan berjalan sesuai instruksi modul P6[cite: 52, 53].
