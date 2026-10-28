@@ -227,3 +227,39 @@
 
 #### 5. Catatan dan Perbaikan Galat
 * *Status Fitur:* Integrasi route, model, controller, dan view untuk pembaruan profil penyewa serta penanganan validasi inputnya telah diuji dan berjalan sesuai instruksi modul P6[cite: 52, 53].
+
+## G. Menghilangkan index.php dari URL Aplikasi
+
+### G.5. Memodifikasi Route untuk default_controller dan Pengujian URL
+
+#### 1. Tahap Pengembangan
+* Membuat fail `.htaccess` pada direktori utama aplikasi (`dpwl-[NIM]/`) untuk mengarahkan semula (*rewrite*) URL perkhidmatan web ke *front controller* tanpa menulis `index.php`[cite: 50].
+* Memodifikasi logik pengekstrakan URI pada fail `index.php` untuk menyokong penangkapan parameter laluan baharu[cite: 50].
+* Memperbarui konfigurasi `index_page` pada `application/config/config.php` menjadi string kosong (`$config['index_page'] = '';`)[cite: 50].
+* Memodifikasi fungsi helper `site_url()` pada `application/helpers/url_helper.php` agar tidak lagi menyertakan `index.php` dalam pembentukan URL aplikasi[cite: 50, 51].
+* Memodifikasi tetapan `$route['default_controller'] = 'Katalog_controller';` pada `application/config/routes.php`[cite: 51].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Konfigurasi Server:** `.htaccess` (fail baharu untuk tetapan Mod_Rewrite Apache)[cite: 50].
+* **Front Controller:** `index.php` (penyesuaian pemprosesan URI)[cite: 50].
+* **Config:** `application/config/config.php` (menghapuskan nilai `index_page`)[cite: 50].
+* **Helper:** `application/helpers/url_helper.php` (memperbarui kaedah `site_url()`)[cite: 50, 51].
+* **Route:** `application/config/routes.php` (menukar `default_controller` ke `Katalog_controller`)[cite: 51].
+
+#### 3. Langkah Pengujian
+1. **Pengujian Halaman Utama (Default Controller):**
+   * Membuka pelayar dan mengoperasikan URL dasar aplikasi: `http://localhost/dpwl-[NIM]/`[cite: 51].
+   * Memastikan halaman katalog dapat dimuatkan secara automatik sebagai halaman utama (*default controller*) tanpa perlu menaip `/index.php` atau `/katalog`[cite: 51].
+2. **Pengujian Navigasi Tanpa index.php:**
+   * Mengklik pelbagai pautan navigasi yang tersedia (Katalog Kendaraan, Detail, Registrasi, Login Penyewa, Profil)[cite: 51].
+   * Memeriksa bar alamat pelayar (*address bar*) untuk memastikan penulisan `index.php` tidak lagi muncul pada URL (contoh: `http://localhost/dpwl-[NIM]/katalog/detail/B%201173%20HFF` atau `http://localhost/dpwl-[NIM]/auth/login-penyewa`)[cite: 51].
+3. **Pengujian Integriti Fitur Aplikasi:**
+   * Memastikan seluruh fitur aplikasi (proses pendaftaran, log masuk, log keluar, kemaskini profil, dan paparan detail) tetap berjalan dengan lancar tanpa menghasilkan ralat HTTP 404/500[cite: 51].
+
+#### 4. Hasil Pengujian Aktual
+* **Penghilangan URL index.php:** URL aplikasi menjadi lebih bersih (*clean URL*) dan penulisan `index.php` telah berjaya dihilangkan daripada bar alamat pelayar[cite: 51].
+* **Default Controller:** Mengakses URL akar `http://localhost/dpwl-[NIM]/` secara automatik memuatkan `Katalog_controller`[cite: 51].
+* **Keberfungsian Fitur:** Seluruh laluan navigasi dan fungsi aplikasi (MVC, autentikasi, dan pengurusan profil) kekal berfungsi sepenuhnya[cite: 51].
+
+#### 5. Catatan dan Perbaikan Galat
+* *Status Fitur:* Konfigurasi penjimatan URL dan modul pembetulan `index.php` telah diuji dan disahkan berjalan dengan sempurna mengikut arahan modul P6[cite: 51, 54].
