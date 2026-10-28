@@ -113,3 +113,44 @@
 
 #### 5. Catatan dan Perbaikan Galat
 * *Status Fitur:* Integrasi route, model, controller, dan view untuk detail kendaraan beserta penanganan galatnya telah diuji dan berjalan sesuai instruksi modul P6[cite: 21, 26].
+
+## D. Mengimplementasikan Registrasi Akun Penyewa
+
+### D.5. Menguji Registrasi Berhasil, Input Tidak Valid, dan Akun Duplikat
+
+#### 1. Tahap Pengembangan
+* Menambahkan route `$route['auth/register'] = 'Auth/register';` pada `application/config/routes.php`[cite: 26].
+* Membuat model `application/models/Penyewa_model.php` yang berisi method `findByUserPlg()` untuk mengecek ketersediaan username dan method `create()` untuk menyimpan data registrasi penyewa[cite: 26, 27].
+* Mengintegrasikan method `register()` pada `application/controllers/Auth.php` untuk menangani logika validasi input, hashing password dengan `password_hash()`, serta penanganan galat[cite: 29, 30].
+* Membuat View formulir registrasi di `application/views/auth/register.php`[cite: 30].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Route:** `application/config/routes.php` (menambahkan route `auth/register`)[cite: 26].
+* **Model:** `application/models/Penyewa_model.php` (Model baru untuk entitas penyewa)[cite: 26].
+* **Controller:** `application/controllers/Auth.php` (menambahkan method `register()`)[cite: 29].
+* **View:** `application/views/auth/register.php` (membuat View formulir registrasi penyewa)[cite: 30].
+
+#### 3. Langkah Pengujian
+1. **Pengujian Akses Halaman & Navigasi:**
+   * Membuka peramban dan mengklik menu **Registrasi** atau mengakses URL `http://localhost/dpwl-[NIM]/index.php/auth/register`[cite: 34].
+   * Memastikan formulir registrasi penyewa tampil dengan rapi dan semua *field* input wajib terlihat jelas[cite: 31, 34].
+2. **Pengujian Input Tidak Valid (Validasi Server & Client):**
+   * Mengisi username yang tidak sesuai format (misal mengandung spasi atau karakter ilegal) atau NIK kurang/lebih dari 16 digit[cite: 29].
+   * Memasukkan password kurang dari 8 karakter atau konfirmasi password yang tidak cocok[cite: 29].
+   * Memastikan sistem menampilkan pesan peringatan galat (*alert-danger*) dan mengembalikan input sebelumnya (*old input*)[cite: 29, 30, 31].
+3. **Pengujian Akun Duplikat:**
+   * Mengisi formulir registrasi menggunakan *username* yang sudah terdaftar sebelumnya di dalam basis data `t_penyewa`[cite: 26, 30].
+   * Memastikan sistem menolak pendaftaran dan memberikan pesan error *"Username sudah digunakan."*[cite: 30].
+4. **Pengujian Registrasi Berhasil:**
+   * Mengisi seluruh field wajib dengan data valid (Username 1-15 karakter, Password ≥ 8 karakter, NIK 16 digit, Nama Lengkap, Nomor HP, Alamat Lengkap)[cite: 29].
+   * Mengklik tombol **Daftar**[cite: 33].
+   * Memastikan data tersimpan ke tabel `t_penyewa`, password terenkripsi (*hash*), dan halaman menampilkan pesan sukses registrasi serta tombol menuju halaman **Login Penyewa**[cite: 27, 30, 31].
+
+#### 4. Hasil Pengujian Aktual
+* **Akses & Tampilan Form:** Halaman formulir registrasi dapat diakses dengan baik tanpa galat[cite: 34].
+* **Penanganan Validasi & Input Galat:** Sistem secara responsif menolak masukan yang tidak sesuai kriteria validasi dan mempertahankan data inputan lama pada formulir[cite: 29, 30].
+* **Pencegahan Akun Duplikat:** Pengecekan *username* terdaftar melalui `findByUserPlg()` berfungsi dengan presisi[cite: 26, 30].
+* **Penyimpanan Data Berhasil:** Data akun penyewa baru berhasil masuk ke basis data `t_penyewa` dengan amatan password ter-hash secara aman[cite: 27, 30].
+
+#### 5. Catatan dan Perbaikan Galat
+* *Status Fitur:* Integrasi route, model, controller, dan view registrasi penyewa serta pengujian berbagai skenario input telah berhasil diverifikasi sesuai petunjuk modul P6[cite: 31, 35].
