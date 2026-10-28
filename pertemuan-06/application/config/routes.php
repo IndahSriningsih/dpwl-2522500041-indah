@@ -27,3 +27,6 @@ $route['admin/mobil/tambah'] = 'Mobil_controller/tambah';
 $route['admin/mobil/ubah/(:any)'] = 'Mobil_controller/ubah/$1'; 
 $route['admin/mobil/hapus/(:any)'] = 'Mobil_controller/hapus/$1';  
 // Route P5 // dari href(menu), diproses ke Mobil_controller dengan mengerjakan method index() yang memanggil admin\mobil_view $route['admin/mobil'] = 'Mobil_controller/index'; 
+
+// Route P6
+$route['katalog'] = 'Katalog_controller/index';

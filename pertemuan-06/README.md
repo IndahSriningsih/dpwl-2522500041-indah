@@ -41,3 +41,39 @@
 * **Status Aset:** Berkas aset fisik (CSS, JS, Webfonts, Gambar) telah berhasil disalin ke `assets/zay/` tanpa menghapus aset admin/P5 yang sudah ada[cite: 6, 8].
 * **Catatan Integrasi URL Aset:** Referensi jalur relatif templat asli (seperti `href="assets/css/bootstrap.min.css"`) telah dicatat dan dipisahkan untuk disesuaikan menggunakan pemanggilan `<?= base_url('assets/zay/css/bootstrap.min.css') ?>` saat tahap penggabungan ke View[cite: 7, 8].
 * **Status Fitur:** Siap dilanjutkan ke tahap integrasi Model-Controller-View (MCV) Katalog Kendaraan.
+## B. Mengimplementasikan Katalog Kendaraan Berbasis MVC
+
+### B.4. Menguji Integrasi Model, Controller, View, dan Navigasi Katalog
+
+#### 1. Tahap Pengembangan
+* Menambahkan method `getKatalog()` pada `application/models/Mobil_model.php` untuk mengambil seluruh data kendaraan dari basis data[cite: 9, 10].
+* Mengatur route `$route['katalog'] = 'Katalog_controller/index';` pada `application/config/routes.php`[cite: 10].
+* Membuat `Katalog_controller.php` untuk memanggil Model dan meneruskan data kendaraan ke View[cite: 10].
+* Membuat komponen View katalog yang terbagi menjadi `header.php`, `navbar.php`, `footer.php`, dan `index.php` di bawah folder `application/views/katalog/`[cite: 10, 16, 21].
+
+#### 2. Berkas dan Komponen yang Ditambahkan / Diubah
+* **Model:** `application/models/Mobil_model.php` (menambahkan method `getKatalog()`)[cite: 9, 10].
+* **Route:** `application/config/routes.php` (menambahkan route `katalog`)[cite: 10].
+* **Controller:** `application/controllers/Katalog_controller.php` (Controller baru)[cite: 10].
+* **View:** 
+  * `application/views/katalog/header.php`[cite: 10]
+  * `application/views/katalog/navbar.php`[cite: 11]
+  * `application/views/katalog/footer.php`[cite: 13]
+  * `application/views/katalog/index.php`[cite: 16]
+
+#### 3. Langkah Pengujian
+1. Membuka peramban (browser) dan mengakses URL aplikasi: `http://localhost/dpwl-[NIM]/index.php/katalog` (sesuaikan `[NIM]` dengan direktori aplikasi).
+2. Memeriksa keberhasilan pemuatan antarmuka Zay Shop (header, carousel hero, kategori, dan footer)[cite: 16, 21].
+3. Memeriksa kelengkapan data kendaraan yang muncul pada kartu katalog (nama mobil, jenis, tahun buat, transmisi, kapasitas kursi/bagasi, harga sewa per hari, dan status unit)[cite: 19, 21].
+4. Memeriksa penanganan tampilan gambar kendaraan (`ft_depan`): menampilkan foto utama jika tersedia, atau menampilkan pesan alternatif jika foto belum diunggah[cite: 18, 21].
+5. Memeriksa fungsi navigasi menu pada bar navigasi utama (Beranda, Katalog Kendaraan, Registrasi, Login Penyewa)[cite: 12, 21].
+
+#### 4. Hasil Pengujian Aktual
+* **Akses Halaman:** Halaman katalog dapat diakses melalui URL `/katalog` tanpa menghasilkan galat HTTP 404 atau HTTP 500.
+* **Pengambilan Data Model:** Data kendaraan berhasil diambil dari tabel `t_mobil` secara berurutan (*ASC*) berdasarkan nama kendaraan[cite: 9, 21].
+* **Render View:** Seluruh komponen View (`header`, `navbar`, `index`, `footer`) terisi dan terintegrasi dengan baik[cite: 16, 21].
+* **Fungsi Navigasi:** Tautan navigasi dan responsivitas halaman katalog berfungsi dengan normal[cite: 12, 21].
+
+#### 5. Catatan dan Penanganan Galat
+* *Foto Kendaraan:* Apabila terdapat unit kendaraan yang gambarnya belum tampil atau menggunakan teks alternatif, foto unit dapat diunggah melalui fitur **Manajemen Kendaraan (P5)** pada sisi Admin[cite: 21].
+* *Status Fitur:* Integrasi Model, Controller, View, dan Navigasi Katalog Kendaraan telah teruji dan berjalan sesuai spesifikasi praktikum P6[cite: 21].
