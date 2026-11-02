@@ -18,3 +18,11 @@
   3. Menguji respons sistem terhadap kendaraan dengan status sedang disewa atau tidak tersedia.
 * **Hasil Eksekusi**: Perilaku tombol merespons kondisi sesi penyewa dan ketersediaan unit secara presisi. Kendaraan yang tidak tersedia otomatis menyajikan tombol nonaktif bertuliskan *Tidak Dapat Disewa*.
 * **Status**: **Berhasil**
+
+### 4. Tahap D: Pesan Notifikasi, Tautan, dan Jumlah Keranjang pada Navbar
+* **Langkah Pengujian**:
+  1. Memeriksa keberadaan ikon dan *badge* jumlah keranjang pada `navbar.php`.
+  2. Menguji navigasi dari berbagai halaman (Katalog, Detail, dan Profil) untuk memastikan data jumlah keranjang terkirim dengan konsisten.
+  3. Memeriksa penanganan pesan notifikasi (*flash message*) saat penambahan barang atau error.
+* **Hasil Aktual**: *Badge* jumlah keranjang pada *header*/navbar secara dinamis menampilkan total kendaraan dalam keranjang milik penyewa aktif. Pesan notifikasi sukses/error tampil dan dapat ditutup (*dismissible*).
+* **Status**: **Berhasil**

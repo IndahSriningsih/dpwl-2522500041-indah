@@ -36,7 +36,7 @@ class Katalog_controller extends Controller
             exit('Kendaraan tidak ditemukan.');
         }
 
-        $mobil = $this->mobilModel->getByNoPlat($noPlat);
+       $mobil = $this->mobilModel->getByNoPlat($noPlat);
 
         if ($mobil === null) {
             http_response_code(404);
