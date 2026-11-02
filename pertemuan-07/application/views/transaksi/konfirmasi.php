@@ -95,8 +95,7 @@ P9.</p>
 rawurlencode($kodeSewa))) ?>">
 <i class="fas fa-arrow-left me-1" aria-hidden="true"></i> Kembali ke Keranjang
 </a>
-<form method="post" action="<?= $e(site_url('transaksi/checkout')) ?>" onsubmit="return
-confirm('Ajukan transaksi ini kepada admin?');">
+<form method="post" action="<?= $e(site_url('transaksi/checkout')) ?>" onsubmit="return window.confirm('Ajukan transaksi ini kepada admin?');">
 <input type="hidden" name="kode_sewa" value="<?= $e($kodeSewa) ?>">
 <button type="submit" class="btn btn-success btn-lg">
 <i class="fas fa-check me-1" aria-hidden="true"></i> Konfirmasi dan Ajukan Transaksi

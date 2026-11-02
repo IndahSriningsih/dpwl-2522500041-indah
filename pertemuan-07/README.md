@@ -37,3 +37,25 @@
   6. Coba tambahkan kendaraan yang sama untuk kedua kalinya dan pastikan sistem menolak penambahan duplikat.
 * **Hasil Aktual**: Proses penambahan kendaraan ke keranjang berhasil dijalankan. Data transaksi tersimpan pada tabel `t_sewa`, sedangkan data kendaraan yang dipilih tersimpan pada tabel `t_pilih` dengan `kode_sewa` yang sesuai. Penambahan kendaraan lain menggunakan keranjang aktif yang sama, dan sistem berhasil mencegah penambahan kendaraan yang sama secara duplikat. Hasil pemeriksaan melalui phpMyAdmin menunjukkan bahwa penyimpanan data telah sesuai dengan ketentuan.
 * **Status**: **Berhasil**
+
+### 6. Tahap F: Implementasi Modul Keranjang dan Finalisasi Checkout
+
+#### F.1. Penyusunan Halaman Rincian Keranjang (`views/transaksi/keranjang.php`)
+* **Pengujian**: Menampilkan rincian kendaraan, rentang waktu sewa, tarif harian, kalkulasi durasi, hingga total biaya. Halaman dibekali fitur penyesuaian jadwal sewa, pembatalan/penghapusan item, serta navigasi menuju *checkout*.
+* **Hasil**: **Berhasil & Terverifikasi**
+
+#### F.2. Integrasi Method Keranjang pada Controller (`Transaksi_controller.php`)
+* **Pengujian**: Mengintegrasikan Model, Controller, dan Route untuk mengelola penambahan armada, penyajian keranjang, penyesuaian tanggal sewa, penghapusan unit, hingga tahapan *checkout*. Pengujian dilakukan pada penyewa dengan keranjang aktif maupun keranjang kosong. Lencana pada bilah navigasi turut diperiksa.
+* **Hasil**: **Berhasil & Terverifikasi**
+
+#### F.3. Pembuatan Halaman Konfirmasi dan Validasi Checkout
+* **F.3.1. Tampilan Konfirmasi Transaksi (`views/transaksi/konfirmasi.php`)**: Menghasilkan resume persewaan, kalkulasi total tagihan, penentuan DP sebesar 30%, serta sisa biaya yang wajib dilunasi. (**Status: Berhasil**)
+* **F.3.2. Pengujian Tampilan Konfirmasi Checkout**: Memastikan seluruh kalkulasi transaksi disajikan secara akurat dan tombol navigasi kembali ke keranjang berfungsi sebagaimana mestinya. (**Status: Berhasil**)
+* **F.3.3. Pengujian Alur Eksekusi Checkout**:
+  * Pesan dialog konfirmasi JavaScript muncul sebelum formulir dikirimkan.
+  * Permohonan sewa berhasil diajukan dan penyewa diarahkan kembali ke halaman katalog dengan notifikasi sukses.
+  * Pengecekan pada basis data memastikan:
+    - Status sewa berubah dari `keranjang` menjadi `diajukan`.
+    - Setoran Uang Muka (DP 30%) terekam pada tabel `t_bayar` dengan kondisi status `pending`.
+    - Nomor transaksi yang telah diajukan terkunci dan tidak dapat diakses kembali sebagai keranjang aktif.
+  * **Status**: **Berhasil & Terverifikasi**
