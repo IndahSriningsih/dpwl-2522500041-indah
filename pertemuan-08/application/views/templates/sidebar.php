@@ -54,9 +54,9 @@ search"></i>
               <i class="fa fa-car"></i> <span>Manajemen Kendaraan</span>   
             </a> 
             <li class="nav-item">
-            <a href="index.php?controller=penyewa&action=index" class="nav-link">
-                <i class="icon-users"></i> Manajemen Penyewa
-            </a>
+            <a href="<?= htmlspecialchars(site_url('admin/penyewa'), ENT_QUOTES, 'UTF-8') ?>">     
+              <i class="fa fa-car"></i> <span>Manajemen Penyewa</span>   
+            </a> 
         </li>
          </li> 
          </ul>
