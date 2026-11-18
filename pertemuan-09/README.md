@@ -306,3 +306,76 @@ Fitur ini membantu memastikan pembayaran penyewa diperiksa terlebih dahulu sebel
 
 **Praktikum Mandiri P9 – Tahap 3**  
 **Membuat Verifikasi Pembayaran Admin**
+
+# README P9 – TAHAP 4
+## Menguji dan Memperbaiki Proses Pembayaran
+
+### 1. Deskripsi
+Tahap 4 merupakan tahap pengujian dan perbaikan proses pembayaran pada aplikasi penyewaan kendaraan. Pengujian dilakukan untuk memastikan fitur pembayaran penyewa, upload bukti pembayaran, dan verifikasi pembayaran oleh admin dapat berjalan dengan baik.
+
+### 2. Tujuan
+- Memastikan halaman pembayaran penyewa dapat ditampilkan.
+- Memastikan penyewa dapat melihat informasi pembayaran.
+- Memastikan fitur upload bukti pembayaran berfungsi.
+- Memastikan bukti pembayaran tersimpan dengan benar.
+- Memastikan admin dapat melihat daftar pembayaran yang menunggu verifikasi.
+- Memastikan admin dapat menerima atau menolak pembayaran.
+- Memastikan status pembayaran dan status penyewaan diperbarui dengan benar.
+
+### 3. Proses Pengujian
+
+#### A. Pengujian Halaman Pembayaran Penyewa
+1. Jalankan aplikasi melalui browser.
+2. Login menggunakan akun penyewa.
+3. Buka halaman pembayaran.
+4. Periksa informasi pembayaran dan nominal DP.
+5. Pastikan data pembayaran sesuai dengan transaksi penyewaan.
+
+**Hasil yang diharapkan:** Halaman pembayaran tampil dan informasi pembayaran sesuai dengan transaksi.
+
+#### B. Pengujian Upload Bukti Pembayaran
+1. Buka halaman pembayaran penyewa.
+2. Pilih file bukti pembayaran.
+3. Upload bukti pembayaran.
+4. Periksa apakah file berhasil tersimpan di folder `uploads/bayar/`.
+5. Pastikan status pembayaran masih menunggu verifikasi (`pending`).
+
+**Hasil yang diharapkan:** Bukti pembayaran berhasil diunggah dan nama file tersimpan pada data pembayaran.
+
+#### C. Pengujian Verifikasi Pembayaran Admin
+1. Login menggunakan akun admin.
+2. Buka menu Verifikasi Pembayaran.
+3. Pilih salah satu data pembayaran.
+4. Periksa detail pembayaran dan bukti yang diunggah.
+5. Klik tombol Terima atau Tolak.
+6. Periksa perubahan status pembayaran dan penyewaan.
+
+**Hasil yang diharapkan:**
+- Jika diterima, status pembayaran berubah menjadi `valid` dan status penyewaan menjadi `disetujui`.
+- Jika ditolak, status pembayaran berubah menjadi `invalid` dan status penyewaan menjadi `ditolak`.
+
+### 4. Pengujian Kondisi Kesalahan
+Beberapa kondisi yang perlu diuji:
+- Penyewa belum mengunggah bukti pembayaran.
+- Format atau ukuran file tidak sesuai ketentuan aplikasi.
+- File bukti pembayaran tidak ditemukan.
+- Admin mencoba memverifikasi pembayaran yang sudah diproses.
+- Pengguna yang bukan admin mencoba membuka halaman verifikasi.
+- Data pembayaran tidak ditemukan.
+
+**Hasil yang diharapkan:** Sistem menampilkan pesan kesalahan yang sesuai dan tidak memproses pembayaran secara tidak benar.
+
+### 5. Perbaikan yang Dilakukan
+Perbaikan dilakukan berdasarkan hasil pengujian, antara lain:
+1. Memperbaiki tampilan halaman pembayaran agar informasi lebih mudah dibaca.
+2. Memastikan proses upload menyimpan file pada folder yang benar.
+3. Memastikan data bukti pembayaran tersimpan pada tabel `t_bayar`.
+4. Memastikan halaman verifikasi hanya dapat diakses oleh admin yang aktif.
+5. Memastikan tombol Terima dan Tolak memproses data melalui metode POST.
+6. Memastikan status pembayaran dan penyewaan diperbarui secara konsisten.
+7. Memastikan sistem tidak memproses verifikasi yang sama lebih dari satu kali.
+
+### 6. Kesimpulan
+Pada tahap 4 dilakukan pengujian terhadap seluruh proses pembayaran, mulai dari penyewa melihat informasi pembayaran, mengunggah bukti pembayaran, hingga admin melakukan verifikasi. Perbaikan dilakukan terhadap bagian yang belum berjalan sesuai harapan agar proses pembayaran pada aplikasi penyewaan kendaraan dapat berjalan dengan baik dan terintegrasi dengan sistem transaksi P7.
+
+**Catatan:** Isi hasil pengujian berdasarkan kondisi aplikasi setelah benar-benar diuji. Jika masih ditemukan kendala, tuliskan kendala dan perbaikannya sesuai hasil yang sebenarnya.
