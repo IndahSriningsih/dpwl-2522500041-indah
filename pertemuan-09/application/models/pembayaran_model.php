@@ -1,4 +1,5 @@
- <?php
+
+<?php
 
 class Pembayaran_model
 {
@@ -29,7 +30,7 @@ class Pembayaran_model
                 INNER JOIN t_sewa s
                     ON s.kode_sewa = b.kode_sewa
                 WHERE s.user_plg = ?
-                AND b.jns_byr = 'dp'
+                  AND b.jns_byr = 'dp'
                 ORDER BY b.tgl_wkt_byr DESC";
 
         $stmt = $this->db->prepare($sql);
@@ -50,23 +51,23 @@ class Pembayaran_model
 
         $sql = "SELECT
                     b.kode_bayar,
-                    b.tgl_wkt_byr,
                     b.ft_byr,
                     b.mtode_byr,
                     b.jns_byr,
                     b.nominal,
                     b.sttus_byr,
+                    b.tgl_wkt_byr,
+                    b.tgl_wkt_ver,
                     b.kode_sewa,
                     s.tgl_mulai,
                     s.tgl_selesai,
-                    s.wkt_ambil,
                     s.status_sewa
                 FROM t_bayar b
                 INNER JOIN t_sewa s
                     ON s.kode_sewa = b.kode_sewa
                 WHERE b.kode_bayar = ?
-                AND s.user_plg = ?
-                AND b.jns_byr = 'dp'
+                  AND s.user_plg = ?
+                  AND b.jns_byr = 'dp'
                 LIMIT 1";
 
         $stmt = $this->db->prepare($sql);
@@ -98,5 +99,38 @@ class Pembayaran_model
         $stmt->close();
 
         return $hasil;
+    }
+
+    // Upload dan menyimpan bukti pembayaran penyewa
+    public function uploadBuktiPembayaran(
+        string $kodeBayar,
+        string $userPlg,
+        string $namaFile
+    ): bool {
+
+        $sql = "UPDATE t_bayar b
+                INNER JOIN t_sewa s
+                    ON s.kode_sewa = b.kode_sewa
+                SET b.ft_byr = ?
+                WHERE b.kode_bayar = ?
+                  AND s.user_plg = ?
+                  AND b.jns_byr = 'dp'
+                  AND b.sttus_byr = 'pending'";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bind_param(
+            "sss",
+            $namaFile,
+            $kodeBayar,
+            $userPlg
+        );
+
+        $berhasil = $stmt->execute()
+            && $stmt->affected_rows > 0;
+
+        $stmt->close();
+
+        return $berhasil;
     }
 }

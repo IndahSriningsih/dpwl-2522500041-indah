@@ -83,3 +83,98 @@ Halaman Pembayaran Saya dapat menampilkan daftar pembayaran DP milik penyewa yan
 ---
 
 **Dokumentasi Praktikum P9 – Tahap 1 selesai.**
+
+# README – PRAKTIKUM MANDIRI P9
+## Tahap 2: Menambahkan Fitur Upload Bukti Pembayaran
+
+### 1. Deskripsi
+Pada tahap 2 Praktikum Mandiri P9 dilakukan pengembangan fitur upload bukti pembayaran pada aplikasi penyewaan kendaraan berbasis PHP dengan konsep MVC.
+
+Fitur ini memungkinkan penyewa mengunggah bukti pembayaran DP melalui halaman detail pembayaran. Bukti pembayaran yang diunggah akan disimpan ke dalam folder aplikasi dan dicatat pada database untuk keperluan verifikasi oleh admin.
+
+### 2. Tujuan
+- Menambahkan fitur upload bukti pembayaran DP.
+- Memungkinkan penyewa mengunggah bukti transfer.
+- Menyimpan file bukti pembayaran ke folder aplikasi.
+- Menghubungkan file bukti pembayaran dengan data pembayaran di database.
+- Menampilkan bukti pembayaran pada halaman detail pembayaran.
+
+### 3. File yang Dibuat atau Diubah
+
+**File yang diubah:**
+- `application/views/penyewa/pembayaran_detail.php`
+- `application/controllers/Pembayaran_controller.php`
+- `application/models/Pembayaran_model.php`
+
+**Folder penyimpanan:**
+- `uploads/bayar/`
+
+### 4. Fitur yang Ditambahkan
+
+1. **Form Upload Bukti Pembayaran**  
+   Menampilkan form untuk memilih dan mengunggah bukti transfer.
+
+2. **Validasi File**  
+   Memeriksa file yang diunggah berdasarkan format dan ukuran file sesuai validasi controller.
+
+3. **Penyimpanan Bukti Pembayaran**  
+   File bukti pembayaran disimpan pada folder `uploads/bayar/`.
+
+4. **Penyimpanan Data ke Database**  
+   Nama atau lokasi file bukti pembayaran disimpan pada kolom `ft_byr` di tabel `t_bayar`.
+
+5. **Menampilkan Bukti Pembayaran**  
+   Bukti pembayaran yang berhasil diunggah dapat ditampilkan kembali pada halaman detail pembayaran.
+
+6. **Pembatasan Upload**  
+   Upload hanya diperbolehkan untuk pembayaran dengan status `pending` dan metode pembayaran `transfer`.
+
+### 5. Alur Proses Upload
+
+1. Penyewa membuka halaman pembayaran.
+2. Penyewa memilih salah satu transaksi pembayaran DP.
+3. Sistem menampilkan halaman detail pembayaran.
+4. Penyewa memilih foto bukti transfer.
+5. Penyewa menekan tombol Upload Bukti Pembayaran.
+6. Controller memeriksa file yang dikirim.
+7. File disimpan ke folder `uploads/bayar/`.
+8. Model memperbarui data bukti pembayaran pada tabel `t_bayar`.
+9. Sistem menampilkan bukti pembayaran pada halaman detail.
+
+### 6. Ketentuan Upload
+
+- Format file: JPG, JPEG, dan PNG.
+- Ukuran maksimal: 3 MB sesuai validasi controller.
+- Nama input file: `bukti_pembayaran`.
+- Metode form: `POST`.
+- Enctype: `multipart/form-data`.
+- Folder penyimpanan: `uploads/bayar/`.
+
+### 7. Pengujian
+
+Pengujian dilakukan dengan langkah berikut:
+
+1. Login menggunakan akun penyewa.
+2. Buka menu pembayaran.
+3. Pilih pembayaran DP yang masih berstatus `pending`.
+4. Masuk ke halaman detail pembayaran.
+5. Pilih file bukti transfer.
+6. Klik tombol Upload Bukti Pembayaran.
+7. Periksa apakah file tersimpan di folder `uploads/bayar/`.
+8. Periksa apakah data `ft_byr` berhasil diperbarui pada tabel `t_bayar`.
+9. Pastikan gambar bukti pembayaran tampil pada halaman detail.
+
+### 8. Hasil yang Diharapkan
+
+- Form upload bukti pembayaran tampil pada halaman detail.
+- Penyewa dapat memilih dan mengunggah foto bukti transfer.
+- File tersimpan pada folder `uploads/bayar/`.
+- Data bukti pembayaran tersimpan pada tabel `t_bayar`.
+- Foto bukti pembayaran dapat ditampilkan kembali.
+- Pembayaran tetap menunggu verifikasi admin.
+
+### 9. Kesimpulan
+
+Pada tahap 2 Praktikum Mandiri P9 berhasil ditambahkan fitur upload bukti pembayaran DP. Fitur ini digunakan untuk mengirimkan bukti transfer dari penyewa agar dapat diperiksa dan diverifikasi oleh admin pada tahap berikutnya.
+
+**Tahap selanjutnya:** Tahap 3 – Membuat Fitur Verifikasi Pembayaran Admin.

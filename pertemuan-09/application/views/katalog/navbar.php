@@ -75,6 +75,12 @@ href="<?= $e(site_url('katalog')) ?>#katalog">
 Katalog Kendaraan
 </a>
 </li>
+<li class="nav-item">
+        <a class="nav-link"
+           href="<?= $e(site_url('pembayaran')) ?>">
+            Pembayaran Saya
+        </a>
+    </li>
 <?php if (!$isPenyewaLogin): ?>
 <li class="nav-item">
 <a class="nav-link"
@@ -88,13 +94,6 @@ href="<?= $e(site_url('auth/login-penyewa')) ?>">
 Login Penyewa
 </a>
 </li>
-<!-- Menu Pembayaran Penyewa -->
-    <li class="nav-item">
-        <a class="nav-link"
-           href="<?= $e(site_url('pembayaran')) ?>">
-            Pembayaran Saya
-        </a>
-    </li>
 <?php else: ?>
 <li class="nav-item">
 <form
