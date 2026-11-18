@@ -178,3 +178,131 @@ Pengujian dilakukan dengan langkah berikut:
 Pada tahap 2 Praktikum Mandiri P9 berhasil ditambahkan fitur upload bukti pembayaran DP. Fitur ini digunakan untuk mengirimkan bukti transfer dari penyewa agar dapat diperiksa dan diverifikasi oleh admin pada tahap berikutnya.
 
 **Tahap selanjutnya:** Tahap 3 – Membuat Fitur Verifikasi Pembayaran Admin.
+
+
+# PRAKTIKUM MANDIRI P9
+## TAHAP 3 – MEMBUAT VERIFIKASI PEMBAYARAN ADMIN
+
+### 1. Deskripsi
+Tahap 3 merupakan pengembangan fitur verifikasi pembayaran oleh admin pada aplikasi rental kendaraan. Fitur ini digunakan untuk memeriksa bukti pembayaran yang telah diunggah oleh penyewa, kemudian menentukan apakah pembayaran diterima atau ditolak.
+
+### 2. Tujuan
+- Membuat halaman verifikasi pembayaran admin.
+- Menampilkan daftar pembayaran yang menunggu verifikasi.
+- Menampilkan detail informasi pembayaran dan penyewa.
+- Menampilkan bukti pembayaran yang telah diunggah.
+- Menyediakan fitur menerima dan menolak pembayaran.
+- Memperbarui status pembayaran dan transaksi sewa secara otomatis.
+
+### 3. File yang Dibuat dan Diubah
+
+**A. Model**
+
+Lokasi: `application/models/Verifikasi_model.php`
+
+Fungsi:
+- Mengambil daftar pembayaran dengan status `pending`.
+- Mengambil detail pembayaran berdasarkan kode pembayaran.
+- Memproses keputusan verifikasi pembayaran.
+- Memperbarui status pembayaran dan status transaksi sewa.
+
+**B. Controller**
+
+Lokasi: `application/controllers/Verifikasi_controller.php`
+
+Fungsi:
+- Memeriksa login dan status admin.
+- Menampilkan daftar pembayaran.
+- Menampilkan detail pembayaran.
+- Memeriksa keberadaan file bukti pembayaran.
+- Memproses tindakan menerima dan menolak pembayaran.
+- Mengirim pesan pemberitahuan setelah proses verifikasi.
+
+**C. View**
+
+Lokasi: `application/views/admin/`
+
+File:
+- `verifikasi.php` – halaman daftar pembayaran.
+- `verifikasi_detail.php` – halaman detail pembayaran.
+
+Kedua halaman menggunakan template AdminLTE yang terdiri dari header, sidebar, dan footer.
+
+**D. Routes**
+
+Lokasi: `application/config/routes.php`
+
+Routes yang ditambahkan:
+
+```php
+$route['admin/verifikasi'] = 'Verifikasi_controller/index';
+$route['admin/verifikasi/detail/(:any)'] = 'Verifikasi_controller/detail/$1';
+$route['admin/verifikasi/terima/(:any)'] = 'Verifikasi_controller/terima/$1';
+$route['admin/verifikasi/tolak/(:any)'] = 'Verifikasi_controller/tolak/$1';
+```
+
+**E. Sidebar Admin**
+
+Lokasi: `application/views/templates/sidebar.php`
+
+Menambahkan menu:
+- Verifikasi Pembayaran
+
+Menu digunakan admin untuk membuka halaman daftar pembayaran.
+
+### 4. Alur Kerja Verifikasi Pembayaran
+
+1. Admin melakukan login ke aplikasi.
+2. Admin membuka menu Verifikasi Pembayaran.
+3. Sistem menampilkan daftar pembayaran yang berstatus `pending`.
+4. Admin memilih tombol Detail.
+5. Sistem menampilkan informasi penyewa, transaksi, nominal, dan bukti pembayaran.
+6. Admin memeriksa bukti pembayaran.
+7. Admin memilih Terima atau Tolak.
+8. Sistem memperbarui status pembayaran dan transaksi sewa.
+
+### 5. Ketentuan Status Pembayaran
+
+| Keputusan Admin | Status Pembayaran | Status Sewa |
+|---|---|---|
+| Terima | `valid` | `disetujui` |
+| Tolak | `invalid` | `ditolak` |
+
+Sistem hanya mengizinkan verifikasi jika pembayaran masih berstatus `pending`, transaksi masih berstatus `diajukan`, dan file bukti pembayaran tersedia.
+
+### 6. Keamanan Sistem
+
+- Halaman verifikasi hanya dapat diakses oleh admin yang sudah login dan berstatus aktif.
+- Penyewa tidak dapat mengakses halaman verifikasi admin.
+- Proses menerima dan menolak pembayaran menggunakan metode POST.
+- File bukti pembayaran diperiksa keberadaannya sebelum verifikasi.
+- Pembayaran yang sudah diproses tidak dapat diverifikasi kembali.
+- Perubahan status pembayaran dan transaksi dilakukan menggunakan transaksi database agar konsisten.
+
+### 7. Pengujian
+
+Pengujian yang dilakukan:
+
+1. Login sebagai admin.
+2. Membuka menu Verifikasi Pembayaran.
+3. Memastikan daftar pembayaran pending muncul.
+4. Membuka detail pembayaran.
+5. Memastikan informasi penyewa dan bukti pembayaran tampil.
+6. Mencoba menerima pembayaran.
+7. Memeriksa perubahan status menjadi `valid` dan `disetujui`.
+8. Mencoba menolak pembayaran.
+9. Memeriksa perubahan status menjadi `invalid` dan `ditolak`.
+10. Memastikan pembayaran tanpa bukti tidak dapat diverifikasi.
+11. Memastikan pembayaran yang sudah diproses tidak dapat diproses kembali.
+12. Memastikan pengguna yang bukan admin tidak dapat mengakses halaman verifikasi.
+
+### 8. Kesimpulan
+
+Pada tahap 3 Praktikum Mandiri P9, telah dibuat fitur verifikasi pembayaran admin pada aplikasi rental kendaraan. Admin dapat melihat daftar pembayaran, memeriksa detail dan bukti pembayaran, serta menerima atau menolak pembayaran.
+
+Fitur ini membantu memastikan pembayaran penyewa diperiksa terlebih dahulu sebelum transaksi sewa disetujui. Status pembayaran dan transaksi juga diperbarui secara otomatis sesuai keputusan admin.
+
+---
+
+**Praktikum Mandiri P9 – Tahap 3**  
+**Membuat Verifikasi Pembayaran Admin**
