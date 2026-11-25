@@ -193,69 +193,47 @@ Fitur pembayaran P9 tetap dipertahankan sehingga implementasi P10 dapat dikemban
 
 Tahap D.7 digunakan sebagai dokumentasi hasil implementasi Controller Pelunasan dan Dokumen Transaksi.
 
+# P10 – Tahap E: Routes dan Menu Admin Pelunasan
 
-# P10 – E.4 Dokumentasi Routes dan Menu Admin Pelunasan
+## E.1 Menambahkan Route Pelunasan
 
-## Deskripsi
-
-Tahap E pada Praktikum P10 merupakan implementasi Routes dan Menu Admin untuk fitur pelunasan transaksi pada aplikasi rental mobil berbasis MVC. Tahap ini bertujuan menghubungkan method Controller Pelunasan dengan URL aplikasi serta menambahkan akses menu pelunasan pada halaman administrasi.
-
-Implementasi dilakukan pada file `application/config/routes.php` dan file sidebar admin, dengan tetap mempertahankan route dan menu yang telah dibuat pada praktikum sebelumnya.
-
-## E.1 Menambahkan Routes Pelunasan
-
-Pada tahap ini dilakukan penambahan route P10 untuk menghubungkan method Controller Pelunasan dengan URL aplikasi.
+Menambahkan route baru pada file `application/config/routes.php` untuk menghubungkan fitur pelunasan dengan controller `Pembayaran_controller`.
 
 Route yang ditambahkan meliputi:
-
-- Route daftar transaksi pelunasan.
+- Route daftar pelunasan admin.
 - Route proses pelunasan.
 - Route dokumen transaksi.
-- Route detail transaksi pelunasan.
+- Route detail pelunasan.
 
-Route tersebut digunakan untuk mengakses method `pelunasanIndex()`, `prosesPelunasan()`, `dokumenTransaksi()`, dan `pelunasanDetail()` pada `Pembayaran_controller.php`.
+Penambahan route dilakukan tanpa menghapus route yang sudah digunakan pada praktikum P9.
 
-Penambahan route dilakukan pada file `application/config/routes.php` tanpa menghapus route P9 yang telah tersedia.
+## E.2 Menambahkan Menu Pelunasan pada Sidebar Admin
 
-## E.2 Menambahkan Menu Pelunasan Transaksi
+Menambahkan menu **Pelunasan Transaksi** pada sidebar admin agar fitur pelunasan dapat diakses melalui navigasi dashboard admin.
 
-Pada tahap ini dilakukan penambahan menu Pelunasan Transaksi pada sidebar admin.
+Menu diarahkan ke route daftar pelunasan yang telah dibuat sebelumnya.
 
-Menu ini berfungsi sebagai akses bagi admin untuk membuka halaman daftar transaksi yang membutuhkan pelunasan.
+## E.3 Mengintegrasikan Menu dengan Route
 
-Menu Pelunasan Transaksi diarahkan menuju route:
+Menghubungkan menu Pelunasan Transaksi pada sidebar admin dengan controller `Pembayaran_controller`, sehingga admin dapat mengakses halaman daftar transaksi yang membutuhkan pelunasan.
 
-`admin/pembayaran/pelunasan`
+Integrasi dilakukan dengan mempertahankan menu dan fitur administrasi yang telah tersedia sebelumnya.
 
-Penambahan menu dilakukan pada file sidebar admin sehingga fitur pelunasan dapat diakses melalui navigasi halaman administrasi.
+## E.4 Pengujian dan Dokumentasi Routes serta Menu
 
-## E.3 Menghubungkan Menu dengan Routes
-
-Pada tahap ini dilakukan penghubungan antara menu Pelunasan Transaksi dengan route yang telah dibuat pada E.1.
-
-Penghubungan dilakukan agar ketika admin memilih menu Pelunasan Transaksi, aplikasi dapat mengarahkan admin ke Controller Pelunasan melalui route yang telah ditentukan.
-
-Integrasi ini memungkinkan navigasi menuju fitur pelunasan menjadi lebih mudah dan terstruktur sesuai konsep MVC.
-
-## E.4 Pengujian dan Dokumentasi Routes serta Menu Admin
-
-Pada tahap ini dilakukan pemeriksaan terhadap implementasi Routes dan Menu Admin Pelunasan.
-
-Pemeriksaan meliputi:
+Melakukan pemeriksaan terhadap penambahan route dan menu pelunasan, meliputi:
 
 - Memastikan route daftar pelunasan telah ditambahkan.
-- Memastikan route proses pelunasan telah ditambahkan.
-- Memastikan route dokumen transaksi telah ditambahkan.
-- Memastikan route detail pelunasan telah ditambahkan.
-- Memastikan menu Pelunasan Transaksi tersedia pada sidebar admin.
-- Memastikan menu diarahkan ke route daftar pelunasan.
-- Memastikan route P9 tetap dipertahankan.
-- Memeriksa susunan route agar tidak tertangkap oleh route yang lebih umum.
+- Memastikan route detail pelunasan telah tersedia.
+- Memastikan route proses pelunasan telah tersedia.
+- Memastikan route dokumen transaksi telah tersedia.
+- Memastikan menu Pelunasan Transaksi muncul pada sidebar admin.
+- Memastikan route P9 yang sudah ada tetap dipertahankan.
+- Memeriksa urutan route agar route spesifik tidak tertimpa route detail.
 
-Pengujian akses melalui browser dilakukan setelah view pelunasan tersedia dan seluruh komponen Controller, Model, Routes, serta View terintegrasi.
+Pengujian integrasi melalui browser dilakukan setelah view pelunasan dan dokumen transaksi selesai dibuat.
 
 ## Kesimpulan
 
-Tahap E.1 sampai E.3 merupakan implementasi Routes dan Menu Admin Pelunasan pada aplikasi rental mobil berbasis MVC. Implementasi mencakup penambahan route daftar pelunasan, proses pelunasan, dokumen transaksi, detail pelunasan, serta penambahan menu Pelunasan Transaksi pada sidebar admin.
+Tahap E P10 telah dilakukan dengan menambahkan route pelunasan dan dokumen transaksi serta mengintegrasikan menu Pelunasan Transaksi pada sidebar admin. Tahap ini menjadi penghubung antara navigasi admin dengan controller pelunasan yang dikembangkan pada tahap sebelumnya.
 
-Tahap E.4 digunakan sebagai dokumentasi dan pemeriksaan hasil implementasi Routes serta Menu Admin agar fitur pelunasan dapat terintegrasi dengan struktur aplikasi yang telah dikembangkan pada praktikum sebelumnya.
