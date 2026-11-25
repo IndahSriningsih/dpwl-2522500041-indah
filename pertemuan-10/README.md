@@ -52,3 +52,38 @@ Memastikan nilai ENUM `lunas` berhasil ditambahkan pada kolom `status_sewa` di t
 
 ### Kesimpulan
 Penambahan nilai ENUM `lunas` berhasil dilakukan dan nilai ENUM sebelumnya tetap dipertahankan. Perubahan struktur database telah diverifikasi sebelum melanjutkan implementasi Model Pelunasan P10.
+
+# P10 – C.5 Implementasi Model Pelunasan
+
+## Tujuan
+Tahap ini bertujuan untuk menambahkan dan mengimplementasikan fungsi pelunasan pada `Pembayaran_model.php` dengan menggabungkan fungsi daftar pelunasan, detail pelunasan, pembuatan kode pembayaran, dan penyimpanan pelunasan.
+
+## C.1 – Membuat Fungsi Daftar Pelunasan
+Pada tahap ini dibuat fungsi `getDaftarPelunasan()` untuk menampilkan daftar transaksi penyewaan yang memiliki kewajiban pembayaran dan membutuhkan pelunasan.
+
+Fungsi ini digunakan untuk mengambil data transaksi, data penyewa, total biaya sewa, total pembayaran yang telah dilakukan, serta sisa kewajiban pembayaran.
+
+## C.2 – Membuat Fungsi Detail Pelunasan
+Pada tahap ini dibuat fungsi `getDetailPelunasan()` untuk menampilkan detail transaksi penyewaan yang akan dilunasi.
+
+Data yang ditampilkan meliputi informasi penyewa, detail mobil, total biaya sewa, riwayat pembayaran, serta sisa pembayaran yang harus diselesaikan.
+
+## C.3 – Membuat Kode Pembayaran Pelunasan
+Pada tahap ini dibuat fungsi `buatKodeBayarPelunasan()` untuk menghasilkan kode pembayaran pelunasan secara otomatis.
+
+Kode pembayaran dibuat dengan format `PAY/YYYYMMDD/NN` agar transaksi pembayaran memiliki kode unik dan dapat dibedakan berdasarkan tanggal pembuatannya.
+
+## C.4 – Menyimpan Pelunasan
+Pada tahap ini dibuat fungsi `simpanPelunasan()` untuk memproses dan menyimpan pembayaran pelunasan ke dalam database.
+
+Proses ini mencakup pemilihan metode pembayaran, validasi bukti pembayaran transfer, perhitungan sisa kewajiban, penyimpanan data pembayaran, serta perubahan status transaksi penyewaan menjadi `lunas`.
+
+Proses penyimpanan dilakukan menggunakan transaksi database untuk menjaga konsistensi data dan mencegah penyimpanan yang tidak lengkap apabila terjadi kesalahan.
+
+## Hasil Implementasi
+Penambahan fungsi C.1 sampai C.4 dilakukan pada file `Pembayaran_model.php` dengan tetap mempertahankan fungsi pembayaran yang sudah tersedia dari praktikum P9.
+
+Model pelunasan digunakan sebagai dasar untuk melanjutkan pengembangan controller, halaman pelunasan, dan dokumen transaksi pada praktikum P10.
+
+## Kesimpulan
+Implementasi model pelunasan pada tahap C.1 sampai C.4 telah disiapkan untuk mendukung proses pelunasan transaksi penyewaan mobil. Fungsi-fungsi tersebut menjadi bagian dari pengembangan sistem pembayaran pada praktikum P10.
