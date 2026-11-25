@@ -237,3 +237,64 @@ Pengujian integrasi melalui browser dilakukan setelah view pelunasan dan dokumen
 
 Tahap E P10 telah dilakukan dengan menambahkan route pelunasan dan dokumen transaksi serta mengintegrasikan menu Pelunasan Transaksi pada sidebar admin. Tahap ini menjadi penghubung antara navigasi admin dengan controller pelunasan yang dikembangkan pada tahap sebelumnya.
 
+# P10 – Tahap F.1: Membuat View Daftar Pelunasan
+
+## Tujuan
+Membuat halaman View untuk menampilkan daftar transaksi penyewaan yang masih memiliki kewajiban pembayaran dan dapat diproses pelunasannya oleh admin.
+
+## F.1 Membuat View Daftar Pelunasan
+
+Membuat file baru:
+
+`application/views/admin/pelunasan.php`
+
+View ini digunakan untuk menampilkan data transaksi yang dikirimkan oleh `Pembayaran_controller.php` melalui method `pelunasanIndex()`.
+
+### Informasi yang Ditampilkan
+
+Halaman daftar pelunasan menampilkan:
+
+1. Nomor urut transaksi.
+2. Kode transaksi sewa.
+3. Identitas penyewa.
+4. Nomor HP penyewa.
+5. Periode sewa.
+6. Status transaksi.
+7. Total transaksi.
+8. Total pembayaran valid.
+9. Sisa kewajiban pembayaran.
+10. Tombol Detail / Proses untuk membuka detail pelunasan.
+
+### Implementasi Tampilan
+
+Tampilan dibuat menggunakan template AdminLTE yang sudah tersedia pada project, yaitu:
+
+- `templates/header.php`
+- `templates/sidebar.php`
+- `templates/footer.php`
+
+Data ditampilkan menggunakan tabel Bootstrap dengan class `table-bordered` dan `table-striped`.
+
+### Pengamanan Tampilan
+
+Menerapkan `htmlspecialchars()` untuk mengamankan output teks yang berasal dari database agar tidak langsung ditampilkan sebagai HTML.
+
+### Penanganan Flash Message
+
+Menampilkan pesan informasi, keberhasilan, atau kesalahan menggunakan flash message dari session.
+
+### Pemeriksaan
+
+Melakukan pemeriksaan terhadap:
+
+- File `pelunasan.php` sudah dibuat pada folder `application/views/admin/`.
+- Data daftar pelunasan diterima melalui variabel `$daftarPelunasan`.
+- Informasi transaksi ditampilkan dalam tabel.
+- Tombol Detail / Proses mengarah ke route detail pelunasan.
+- Pesan flash dapat ditampilkan.
+- Syntax PHP diperiksa menggunakan perintah `php -l`.
+
+## Kesimpulan
+
+Tahap F.1 telah dikerjakan dengan membuat View daftar pelunasan admin. Halaman ini menjadi tempat admin melihat transaksi yang masih memiliki sisa kewajiban pembayaran dan membuka detail transaksi untuk melakukan proses pelunasan.
+
