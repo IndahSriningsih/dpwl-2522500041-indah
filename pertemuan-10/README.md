@@ -38,3 +38,17 @@ Dokumentasi akan diperbarui secara bertahap pada setiap tahap pengembangan P10, 
 
 ### 6. Git
 Pengelolaan versi dilakukan menggunakan Git untuk menyimpan perubahan setiap tahap pengembangan P10.
+
+## B.3 Memverifikasi Perubahan Struktur Basis Data
+
+### Tujuan
+Memastikan nilai ENUM `lunas` berhasil ditambahkan pada kolom `status_sewa` di tabel `t_sewa`.
+
+### Hasil Pemeriksaan
+- Tabel: `t_sewa`
+- Kolom: `status_sewa`
+- Tipe data: ENUM
+- Nilai ENUM: `diajukan`, `disetujui`, `ditolak`, `aktif`, `selesai`, `batal`, `keranjang`, `lunas`.
+
+### Kesimpulan
+Penambahan nilai ENUM `lunas` berhasil dilakukan dan nilai ENUM sebelumnya tetap dipertahankan. Perubahan struktur database telah diverifikasi sebelum melanjutkan implementasi Model Pelunasan P10.
