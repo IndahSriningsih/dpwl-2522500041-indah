@@ -298,3 +298,58 @@ Melakukan pemeriksaan terhadap:
 
 Tahap F.1 telah dikerjakan dengan membuat View daftar pelunasan admin. Halaman ini menjadi tempat admin melihat transaksi yang masih memiliki sisa kewajiban pembayaran dan membuka detail transaksi untuk melakukan proses pelunasan.
 
+# P10 – Tahap G: Membuat Fitur Dokumen Transaksi
+
+## 1. Tujuan
+Tahap ini bertujuan untuk membuat fitur dokumen transaksi pada aplikasi rental mobil berbasis MVC. Dokumen transaksi digunakan untuk menampilkan informasi transaksi penyewaan dan pembayaran setelah proses pelunasan selesai.
+
+## 2. Membuat Method Dokumen Transaksi pada Controller
+
+File:
+`application/controllers/Pembayaran_controller.php`
+
+Menambahkan method `dokumenTransaksi()` pada `Pembayaran_controller`.
+
+Method ini berfungsi untuk:
+- Memastikan admin sudah login.
+- Memastikan halaman diakses menggunakan metode GET.
+- Mengambil kode transaksi penyewaan.
+- Mengambil detail transaksi melalui method `getDetailPelunasan()` pada `Pembayaran_model`.
+- Mengirimkan data transaksi ke halaman dokumen transaksi.
+
+
+## 4. Menghubungkan View Dokumen Transaksi
+
+File:
+`application/views/admin/dokumen_transaksi.php`
+
+View digunakan untuk menampilkan data transaksi yang dikirimkan oleh controller.
+
+Informasi yang direncanakan ditampilkan meliputi:
+- Kode transaksi penyewaan.
+- Identitas penyewa.
+- Informasi kendaraan.
+- Periode penyewaan.
+- Total biaya transaksi.
+- Riwayat pembayaran DP dan pelunasan.
+- Total pembayaran yang sudah dilakukan.
+- Status transaksi.
+
+## 5. Pengujian
+
+Pengujian dilakukan dengan langkah berikut:
+
+1. Login menggunakan akun admin.
+2. Buka menu pelunasan transaksi.
+3. Pilih salah satu transaksi.
+4. Proses pelunasan sesuai metode pembayaran.
+5. Buka halaman dokumen transaksi.
+6. Periksa apakah informasi transaksi ditampilkan dengan benar.
+
+## 6. Hasil yang Diharapkan
+
+Fitur dokumen transaksi dapat diakses melalui route yang sudah ditentukan. Controller berhasil mengambil data transaksi dari model dan mengirimkannya ke view dokumen transaksi.
+
+## 7. Kesimpulan
+
+Pada tahap G dilakukan penambahan method dokumen transaksi pada `Pembayaran_controller.php` dan penghubungan route menuju halaman dokumen transaksi. Fitur ini menjadi bagian

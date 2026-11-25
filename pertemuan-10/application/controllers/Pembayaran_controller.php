@@ -1,4 +1,5 @@
- <?php
+
+<?php
 
 require_once APPPATH . 'models/Pembayaran_model.php';
 require_once APPPATH . 'models/Transaksi_model.php';
@@ -17,8 +18,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Menampilkan daftar pembayaran DP yang memiliki bukti
-   * dan masih menunggu verifikasi admin.
+   * Menampilkan daftar pembayaran DP yang menunggu verifikasi admin.
    */
   public function verifikasiIndex(): void
   {
@@ -44,8 +44,7 @@ class Pembayaran_controller extends Controller
       );
 
       http_response_code(500);
-      exit('Daftar verifikasi pembayaran belum dapat ditampilkan. '
-        . 'Silakan coba kembali.');
+      exit('Daftar verifikasi pembayaran belum dapat ditampilkan. Silakan coba kembali.');
     }
   }
 
@@ -92,15 +91,12 @@ class Pembayaran_controller extends Controller
       );
 
       http_response_code(500);
-      exit('Detail verifikasi pembayaran belum dapat ditampilkan. '
-        . 'Silakan coba kembali.');
+      exit('Detail verifikasi pembayaran belum dapat ditampilkan. Silakan coba kembali.');
     }
   }
 
   /**
    * Memproses keputusan admin: valid atau invalid.
-   * Model memastikan bukti tersedia, status masih pending,
-   * dan perubahan t_bayar serta t_sewa berlangsung atomik.
    */
   public function prosesVerifikasi(string $kodeBayar = ''): void
   {
@@ -153,7 +149,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Menampilkan daftar pembayaran DP milik penyewa yang sedang login.
+   * Menampilkan daftar pembayaran DP milik penyewa.
    */
   public function index(): void
   {
@@ -182,13 +178,12 @@ class Pembayaran_controller extends Controller
       );
 
       http_response_code(500);
-      exit('Daftar pembayaran belum dapat ditampilkan. '
-        . 'Silakan coba kembali.');
+      exit('Daftar pembayaran belum dapat ditampilkan. Silakan coba kembali.');
     }
   }
 
   /**
-   * Menampilkan detail pembayaran DP milik penyewa yang login.
+   * Menampilkan detail pembayaran DP milik penyewa.
    */
   public function detail(string $kodeBayar = ''): void
   {
@@ -233,19 +228,12 @@ class Pembayaran_controller extends Controller
       );
 
       http_response_code(500);
-      exit('Detail pembayaran belum dapat ditampilkan. '
-        . 'Silakan coba kembali.');
+      exit('Detail pembayaran belum dapat ditampilkan. Silakan coba kembali.');
     }
   }
 
   /**
    * Menerima unggahan bukti transfer dari penyewa.
-   *
-   * Route yang direncanakan:
-   * pembayaran/upload-bukti/{kode_bayar}
-   *
-   * Nama field formulir:
-   * ft_byr
    */
   public function uploadBukti(string $kodeBayar = ''): void
   {
@@ -273,10 +261,6 @@ class Pembayaran_controller extends Controller
     $namaFileLama = null;
 
     try {
-      /*
-       * Model memeriksa kepemilikan penyewa dan status pembayaran
-       * sebelum memperbarui record DP yang sudah dibuat saat checkout.
-       */
       $namaFileLama = $this->pembayaranModel
         ->simpanBuktiPembayaran(
           $kodeBayar,
@@ -284,7 +268,6 @@ class Pembayaran_controller extends Controller
           $namaFileBaru
         );
 
-      // Hapus bukti lama hanya setelah transaksi database berhasil commit.
       if ($namaFileLama !== null) {
         $this->hapusBuktiLama($namaFileLama);
       }
@@ -307,7 +290,6 @@ class Pembayaran_controller extends Controller
         'Unggah bukti pembayaran gagal: ' . $e->getMessage()
       );
 
-      // Jika pembaruan database gagal, file baru tidak boleh tertinggal.
       $this->hapusBuktiBaru($namaFileBaru);
 
       $this->redirectDenganPesan(
@@ -319,11 +301,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Memvalidasi dan menyimpan satu file gambar bukti pembayaran.
-   *
-   * Validasi menggunakan ukuran aktual, MIME hasil pemeriksaan server,
-   * dan pemeriksaan struktur gambar. Ekstensi dari nama file pengguna
-   * tidak digunakan.
+   * Memvalidasi dan menyimpan file bukti pembayaran.
    */
   private function simpanFileBukti(string $field): array
   {
@@ -353,17 +331,17 @@ class Pembayaran_controller extends Controller
     if ($uploadError !== UPLOAD_ERR_OK) {
       $pesan = match ($uploadError) {
         UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE =>
-        'Ukuran bukti pembayaran melebihi batas unggahan.',
+          'Ukuran bukti pembayaran melebihi batas unggahan.',
         UPLOAD_ERR_PARTIAL =>
-        'Bukti pembayaran hanya terunggah sebagian. Silakan ulangi.',
+          'Bukti pembayaran hanya terunggah sebagian. Silakan ulangi.',
         UPLOAD_ERR_NO_TMP_DIR =>
-        'Folder sementara unggahan tidak tersedia.',
+          'Folder sementara unggahan tidak tersedia.',
         UPLOAD_ERR_CANT_WRITE =>
-        'Server gagal menulis berkas unggahan.',
+          'Server gagal menulis berkas unggahan.',
         UPLOAD_ERR_EXTENSION =>
-        'Unggahan dihentikan oleh konfigurasi server.',
+          'Unggahan dihentikan oleh konfigurasi server.',
         default =>
-        'Unggah bukti pembayaran gagal. Silakan ulangi.'
+          'Unggah bukti pembayaran gagal. Silakan ulangi.'
       };
 
       return [
@@ -470,8 +448,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Menghapus file baru apabila pembaruan database gagal.
-   * Nama file dibatasi pada pola yang dibuat oleh simpanFileBukti().
+   * Menghapus file baru jika pembaruan database gagal.
    */
   private function hapusBuktiBaru(string $namaFile): void
   {
@@ -495,7 +472,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Menghapus bukti lama setelah bukti baru berhasil dicatat di database.
+   * Menghapus bukti lama setelah bukti baru berhasil dicatat.
    */
   private function hapusBuktiLama(string $namaFile): void
   {
@@ -541,7 +518,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Membatasi method HTTP untuk setiap action.
+   * Membatasi method HTTP.
    */
   private function wajibMetode(string $metodeDiizinkan): void
   {
@@ -557,7 +534,7 @@ class Pembayaran_controller extends Controller
   }
 
   /**
-   * Menyimpan pesan dan menerapkan pola Post-Redirect-Get (PRG).
+   * Menyimpan pesan dan menerapkan pola Post-Redirect-Get.
    */
   private function redirectDenganPesan(
     string $uri,
@@ -572,161 +549,203 @@ class Pembayaran_controller extends Controller
     header('Location: ' . site_url($uri));
     exit;
   }
-  /** 
- * P10: Menampilkan daftar transaksi yang masih memiliki kewajiban pelunasan. 
- */ 
-public function pelunasanIndex(): void 
-{ 
-  require_admin_login(); 
-  $this->wajibMetode('GET'); 
- 
-  try { 
-    $daftarPelunasan = $this->pembayaranModel 
-      ->getDaftarPelunasan(); 
- 
-    $flash = $_SESSION['flash_pembayaran'] ?? null; 
-    unset($_SESSION['flash_pembayaran']); 
- 
-    $this->view('admin/pelunasan', [ 
-      'username' => $_SESSION['admin_username'], 
-      'daftarPelunasan' => $daftarPelunasan, 
-      'flash' => $flash 
-    ]); 
-  } catch (Throwable $e) { 
-    error_log( 
-      'Daftar pelunasan gagal ditampilkan: ' . $e->getMessage() 
-    ); 
- 
-    http_response_code(500); 
-    exit('Daftar transaksi pelunasan belum dapat ditampilkan. ' 
-      . 'Silakan coba kembali.'); 
-  } 
-} 
-/** 
- * P10: Menampilkan detail transaksi, riwayat pembayaran, dan sisa kewajiban. 
- */ 
-public function pelunasanDetail(string $kodeSewa = ''): void 
-{ 
-  require_admin_login(); 
-  $this->wajibMetode('GET'); 
- 
-  $kodeSewa = trim(str_replace('~', '/', $kodeSewa)); 
- 
-  if ($kodeSewa === '') { 
-    http_response_code(400); 
-    exit('Kode transaksi sewa wajib tersedia.'); 
-  } 
- 
-  try { 
-    $detailPelunasan = $this->pembayaranModel 
-      ->getDetailPelunasan($kodeSewa); 
- 
-    if ($detailPelunasan === null) { 
-      http_response_code(404); 
-      exit('Transaksi sewa tidak ditemukan.'); 
-    } 
- 
-    $flash = $_SESSION['flash_pembayaran'] ?? null; 
-    unset($_SESSION['flash_pembayaran']); 
- 
-    $this->view('admin/pelunasan_detail', [ 
-      'username' => $_SESSION['admin_username'], 
-      'detailPelunasan' => $detailPelunasan, 
-      'flash' => $flash 
-    ]); 
-  } catch (Throwable $e) { 
-    error_log( 
-      'Detail pelunasan gagal ditampilkan: ' . $e->getMessage() 
-    ); 
- 
-    http_response_code(500); 
-    exit('Detail transaksi pelunasan belum dapat ditampilkan. ' 
-      . 'Silakan coba kembali.'); 
-  } 
-} 
-/** 
- * P10: Mencatat pelunasan yang diterima langsung oleh admin. 
- * 
- * Tunai: tidak memerlukan unggahan bukti. 
- * Transfer: admin mengunggah bukti yang diterima dari penyewa. 
- * Model menghitung nominal sisa kewajiban dan menyimpan pembayaran 
- * dengan status valid dalam satu transaksi database. 
- */ 
-public function prosesPelunasan(string $kodeSewa = ''): void 
-{ 
-  require_admin_login(); 
-  $this->wajibMetode('POST'); 
- 
-  $kodeSewa = trim(str_replace('~', '/', $kodeSewa)); 
-  $metodeBayar = trim((string) ($_POST['mtode_byr'] ?? '')); 
- 
-  if ($kodeSewa === '') { 
-    http_response_code(400); 
-    exit('Kode transaksi sewa wajib tersedia.'); 
-  } 
- 
-  if (!in_array($metodeBayar, ['tunai', 'transfer'], true)) { 
-    $this->redirectDenganPesan( 
-      'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa), 
-      'error', 
-      'Metode pembayaran harus tunai atau transfer.' 
-    ); 
-  } 
- 
-  $namaFileBukti = null; 
- 
-  if ($metodeBayar === 'transfer') { 
-    $hasilUpload = $this->simpanFileBukti('ft_byr'); 
- 
-    if (!$hasilUpload['success']) { 
-      $this->redirectDenganPesan( 
-        'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa), 
-        'error', 
-        $hasilUpload['error'] 
-      ); 
-    } 
- 
-    $namaFileBukti = (string) $hasilUpload['filename']; 
-  } 
- 
-  try { 
-    $kodeBayar = $this->pembayaranModel->simpanPelunasan( 
-      $kodeSewa, 
-      $metodeBayar, 
-      $namaFileBukti 
-    ); 
- 
-    $this->redirectDenganPesan( 
-      'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa), 
-      'success', 
-      'Pelunasan berhasil dicatat dengan kode pembayaran ' . $kodeBayar 
-      . '. Status pembayaran: valid; status transaksi: lunas.' 
-    ); 
-  } catch (InvalidArgumentException $e) { 
-    if ($namaFileBukti !== null) { 
-      $this->hapusBuktiBaru($namaFileBukti); 
-    } 
- 
-    $this->redirectDenganPesan( 
-      'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa), 
-      'error', 
-      $e->getMessage() 
-    ); 
-  } catch (Throwable $e) { 
-    error_log( 
-      'Proses pelunasan gagal: ' . $e->getMessage() 
-    ); 
- 
-    if ($namaFileBukti !== null) { 
-      $this->hapusBuktiBaru($namaFileBukti); 
-    } 
- 
-    $this->redirectDenganPesan( 
-      'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa), 
-      'error', 
-      'Pelunasan belum berhasil dicatat. Pastikan transaksi masih memiliki ' 
-      . 'sisa kewajiban dan belum pernah dilunasi.' 
-    ); 
-  } 
-} 
+
+  // =====================================================
+  // P10: PELUNASAN DAN DOKUMEN TRANSAKSI
+  // =====================================================
+
+  /**
+   * P10: Menampilkan daftar transaksi yang masih memiliki
+   * kewajiban pelunasan.
+   */
+  public function pelunasanIndex(): void
+  {
+    require_admin_login();
+    $this->wajibMetode('GET');
+
+    try {
+      $daftarPelunasan = $this->pembayaranModel
+        ->getDaftarPelunasan();
+
+      $flash = $_SESSION['flash_pembayaran'] ?? null;
+      unset($_SESSION['flash_pembayaran']);
+
+      $this->view('admin/pelunasan', [
+        'username' => $_SESSION['admin_username'],
+        'daftarPelunasan' => $daftarPelunasan,
+        'flash' => $flash
+      ]);
+    } catch (Throwable $e) {
+      error_log(
+        'Daftar pelunasan gagal ditampilkan: '
+          . $e->getMessage()
+      );
+
+      http_response_code(500);
+      exit('Daftar transaksi pelunasan belum dapat ditampilkan. Silakan coba kembali.');
+    }
+  }
+
+  /**
+   * P10: Menampilkan detail transaksi, riwayat pembayaran,
+   * dan sisa kewajiban.
+   */
+  public function pelunasanDetail(string $kodeSewa = ''): void
+  {
+    require_admin_login();
+    $this->wajibMetode('GET');
+
+    $kodeSewa = trim(str_replace('~', '/', $kodeSewa));
+
+    if ($kodeSewa === '') {
+      http_response_code(400);
+      exit('Kode transaksi sewa wajib tersedia.');
+    }
+
+    try {
+      $detailPelunasan = $this->pembayaranModel
+        ->getDetailPelunasan($kodeSewa);
+
+      if ($detailPelunasan === null) {
+        http_response_code(404);
+        exit('Transaksi sewa tidak ditemukan.');
+      }
+
+      $flash = $_SESSION['flash_pembayaran'] ?? null;
+      unset($_SESSION['flash_pembayaran']);
+
+      $this->view('admin/pelunasan_detail', [
+        'username' => $_SESSION['admin_username'],
+        'detailPelunasan' => $detailPelunasan,
+        'flash' => $flash
+      ]);
+    } catch (Throwable $e) {
+      error_log(
+        'Detail pelunasan gagal ditampilkan: '
+          . $e->getMessage()
+      );
+
+      http_response_code(500);
+      exit('Detail transaksi pelunasan belum dapat ditampilkan. Silakan coba kembali.');
+    }
+  }
+
+  /**
+   * P10: Mencatat pelunasan yang diterima langsung oleh admin.
+   */
+  public function prosesPelunasan(string $kodeSewa = ''): void
+  {
+    require_admin_login();
+    $this->wajibMetode('POST');
+
+    $kodeSewa = trim(str_replace('~', '/', $kodeSewa));
+    $metodeBayar = trim((string) ($_POST['mtode_byr'] ?? ''));
+
+    if ($kodeSewa === '') {
+      http_response_code(400);
+      exit('Kode transaksi sewa wajib tersedia.');
+    }
+
+    if (!in_array($metodeBayar, ['tunai', 'transfer'], true)) {
+      $this->redirectDenganPesan(
+        'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa),
+        'error',
+        'Metode pembayaran harus tunai atau transfer.'
+      );
+    }
+
+    $namaFileBukti = null;
+
+    if ($metodeBayar === 'transfer') {
+      $hasilUpload = $this->simpanFileBukti('ft_byr');
+
+      if (!$hasilUpload['success']) {
+        $this->redirectDenganPesan(
+          'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa),
+          'error',
+          $hasilUpload['error']
+        );
+      }
+
+      $namaFileBukti = (string) $hasilUpload['filename'];
+    }
+
+    try {
+      $kodeBayar = $this->pembayaranModel->simpanPelunasan(
+        $kodeSewa,
+        $metodeBayar,
+        $namaFileBukti
+      );
+
+      $this->redirectDenganPesan(
+        'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa),
+        'success',
+        'Pelunasan berhasil dicatat dengan kode pembayaran ' . $kodeBayar
+          . '. Status pembayaran: valid; status transaksi: lunas.'
+      );
+    } catch (InvalidArgumentException $e) {
+      if ($namaFileBukti !== null) {
+        $this->hapusBuktiBaru($namaFileBukti);
+      }
+
+      $this->redirectDenganPesan(
+        'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa),
+        'error',
+        $e->getMessage()
+      );
+    } catch (Throwable $e) {
+      error_log(
+        'Proses pelunasan gagal: ' . $e->getMessage()
+      );
+
+      if ($namaFileBukti !== null) {
+        $this->hapusBuktiBaru($namaFileBukti);
+      }
+
+      $this->redirectDenganPesan(
+        'admin/pembayaran/pelunasan/' . str_replace('/', '~', $kodeSewa),
+        'error',
+        'Pelunasan belum berhasil dicatat. Pastikan transaksi masih memiliki sisa kewajiban dan belum pernah dilunasi.'
+      );
+    }
+  }
+
+  /**
+   * P10: Menampilkan dokumen transaksi setelah pelunasan.
+   */
+  public function dokumenTransaksi(string $kodeSewa = ''): void
+  {
+    require_admin_login();
+    $this->wajibMetode('GET');
+
+    $kodeSewa = trim(str_replace('~', '/', $kodeSewa));
+
+    if ($kodeSewa === '') {
+      http_response_code(400);
+      exit('Kode transaksi sewa wajib tersedia.');
+    }
+
+    try {
+      $detailPelunasan = $this->pembayaranModel
+        ->getDetailPelunasan($kodeSewa);
+
+      if ($detailPelunasan === null) {
+        http_response_code(404);
+        exit('Data dokumen transaksi tidak ditemukan.');
+      }
+
+      $this->view('admin/dokumen_transaksi', [
+        'username' => $_SESSION['admin_username'],
+        'detailPelunasan' => $detailPelunasan
+      ]);
+    } catch (Throwable $e) {
+      error_log(
+        'Dokumen transaksi gagal ditampilkan: '
+          . $e->getMessage()
+      );
+
+      http_response_code(500);
+      exit('Dokumen transaksi belum dapat ditampilkan. Silakan coba kembali.');
+    }
+  }
 }
