@@ -87,3 +87,108 @@ Model pelunasan digunakan sebagai dasar untuk melanjutkan pengembangan controlle
 
 ## Kesimpulan
 Implementasi model pelunasan pada tahap C.1 sampai C.4 telah disiapkan untuk mendukung proses pelunasan transaksi penyewaan mobil. Fungsi-fungsi tersebut menjadi bagian dari pengembangan sistem pembayaran pada praktikum P10.
+
+# P10 – D.7 Dokumentasi Implementasi Controller Pelunasan dan Dokumen Transaksi
+
+## Deskripsi
+
+Tahap D pada Praktikum P10 merupakan implementasi Controller Pelunasan dan Dokumen Transaksi pada aplikasi rental mobil berbasis MVC. Tahap ini bertujuan untuk menghubungkan model pelunasan dengan tampilan admin, memproses pembayaran pelunasan, serta menyediakan dokumen transaksi.
+
+Implementasi dilakukan pada file `Pembayaran_controller.php` dengan tetap mempertahankan fitur pembayaran dan verifikasi yang telah dibuat pada praktikum P9.
+
+## D.1 Menampilkan Daftar Pelunasan
+
+Pada tahap ini dibuat method `pelunasanIndex()` yang berfungsi untuk menampilkan daftar transaksi penyewa yang membutuhkan pelunasan.
+
+Fungsi yang diterapkan:
+
+- Memastikan admin sudah login.
+- Memastikan request menggunakan metode GET.
+- Mengambil data transaksi yang membutuhkan pelunasan dari model.
+- Menampilkan flash message.
+- Mengirim data ke view admin pelunasan.
+
+## D.2 Menampilkan Detail Pelunasan
+
+Pada tahap ini dibuat method `pelunasanDetail()` untuk menampilkan detail transaksi yang akan dilunasi.
+
+Fungsi yang diterapkan:
+
+- Memastikan admin sudah login.
+- Memastikan request menggunakan metode GET.
+- Memvalidasi kode transaksi sewa.
+- Mengambil detail transaksi melalui model.
+- Menampilkan informasi transaksi pelunasan.
+- Menangani apabila data transaksi tidak ditemukan.
+
+## D.3 Memproses Pelunasan
+
+Pada tahap ini dibuat method `prosesPelunasan()` untuk memproses pembayaran pelunasan yang diterima oleh admin.
+
+Fungsi yang diterapkan:
+
+- Memastikan admin sudah login.
+- Memastikan request menggunakan metode POST.
+- Memvalidasi kode transaksi sewa.
+- Memvalidasi metode pembayaran tunai atau transfer.
+- Mengelola unggahan bukti pembayaran apabila menggunakan transfer.
+- Memanggil model untuk menyimpan pembayaran pelunasan.
+- Menampilkan pesan keberhasilan atau kegagalan proses pembayaran.
+
+## D.4 Menampilkan Dokumen Transaksi
+
+Pada tahap ini dibuat method `dokumenTransaksi()` untuk menampilkan dokumen transaksi berdasarkan kode sewa.
+
+Fungsi yang diterapkan:
+
+- Memastikan admin sudah login.
+- Memastikan request menggunakan metode GET.
+- Memvalidasi kode transaksi sewa.
+- Mengambil detail transaksi dari model.
+- Mengirim data transaksi ke view dokumen transaksi.
+- Menangani kesalahan apabila data transaksi tidak ditemukan.
+
+## D.5 Mempertahankan Fitur P9
+
+Implementasi Controller P10 dilakukan dengan mempertahankan fitur-fitur pembayaran yang sudah tersedia pada P9.
+
+Fitur yang dipertahankan meliputi:
+
+- Daftar verifikasi pembayaran.
+- Detail verifikasi pembayaran.
+- Proses verifikasi pembayaran oleh admin.
+- Daftar pembayaran penyewa.
+- Detail pembayaran penyewa.
+- Upload bukti pembayaran.
+- Validasi file bukti pembayaran.
+- Pengelolaan flash message.
+- Pembatasan akses berdasarkan sesi pengguna.
+
+Dengan demikian, penambahan fitur pelunasan tidak menghilangkan fungsi pembayaran DP dan verifikasi pembayaran sebelumnya.
+
+## D.6 Pengujian dan Pemeriksaan Controller
+
+Pada tahap ini dilakukan pemeriksaan terhadap implementasi Controller Pelunasan dan Dokumen Transaksi.
+
+Pemeriksaan meliputi:
+
+- Memastikan method D.1 sampai D.4 tersedia pada controller.
+- Memastikan fungsi P9 tetap tersedia.
+- Memastikan validasi login admin diterapkan.
+- Memastikan pembatasan metode HTTP GET dan POST diterapkan.
+- Memastikan validasi kode transaksi berjalan.
+- Memastikan metode pembayaran tunai dan transfer ditangani.
+- Memastikan penanganan kesalahan dan flash message tersedia.
+- Memeriksa sintaks PHP pada file controller.
+
+File `Pembayaran_controller.php` hasil penggabungan P9 dan P10 telah diperiksa menggunakan PHP lint dan tidak ditemukan kesalahan sintaks.
+
+Pengujian integrasi melalui browser dan database dilakukan setelah route serta view pelunasan selesai diimplementasikan.
+
+## Kesimpulan
+
+Tahap D.1 sampai D.6 merupakan implementasi Controller Pelunasan dan Dokumen Transaksi pada aplikasi rental mobil berbasis MVC. Implementasi mencakup daftar pelunasan, detail transaksi pelunasan, proses pembayaran pelunasan, serta tampilan dokumen transaksi.
+
+Fitur pembayaran P9 tetap dipertahankan sehingga implementasi P10 dapat dikembangkan tanpa menghilangkan fungsi pembayaran DP dan verifikasi admin yang telah dibuat sebelumnya.
+
+Tahap D.7 digunakan sebagai dokumentasi hasil implementasi Controller Pelunasan dan Dokumen Transaksi.
